@@ -1,12 +1,32 @@
 'use strict';
 // Each cat is a tiny original pixel drawing, built from rectangles (no image downloads).
-const pixelPattern = ['..11......11..','..121....121..','..1221111221..','.122222222221.','.122222222221.','.122122221221.','.122222222221.','..1222322221..','...12222221...','....122221....','...12222221...','..1222222221..','..1222222221..','11122222222211','12222222222221','.111111111111.'];
-function pixelCat(ink, blush) {
-  const palette = {1:ink,2:blush,3:'#b36772'};
-  return '<svg viewBox="0 0 56 64" aria-hidden="true" shape-rendering="crispEdges">'+pixelPattern.flatMap((row,y)=>[...row].map((cell,x)=>cell==='.'?'':`<rect x="${x*4}" y="${y*4}" width="4" height="4" fill="${palette[cell]}"/>`)).join('')+'</svg>';
+function pixelCat(palette) {
+  const {outline, fur, light, shade, ears, collar} = palette;
+  return `<svg viewBox="0 0 96 100" aria-hidden="true" shape-rendering="crispEdges">
+    <ellipse cx="48" cy="95" rx="33" ry="3" fill="#071f2433"/>
+    <path d="M64 76H76V68H80V56H88V76H84V84H64Z" fill="${outline}"/>
+    <path d="M68 76H80V60H84V76H80V80H68Z" fill="${shade}"/>
+    <path d="M28 56H64V64H68V84H72V92H60V96H24V92H20V84H24V64H28Z" fill="${outline}"/>
+    <path d="M32 60H60V68H64V88H28V68H32Z" fill="${fur}"/>
+    <path d="M40 68H52V72H56V84H36V72H40Z" fill="${light}"/>
+    <path d="M28 84H40V92H24V88H28ZM52 84H64V88H68V92H52Z" fill="${light}"/>
+    <path d="M12 24V4H20V8H24V12H28V16H60V12H64V8H68V4H76V24H80V52H76V60H68V64H24V60H16V52H12Z" fill="${outline}"/>
+    <path d="M16 24V12H20V16H24V20H64V16H68V12H72V28H76V48H72V56H64V60H28V56H20V48H16Z" fill="${fur}"/>
+    <path d="M20 16H24V24H20ZM64 20H68V16H72V28H64Z" fill="${ears}"/>
+    <path d="M28 20H36V28H32V24H28ZM40 20H48V24H44V28H40ZM52 20H60V24H56V28H52Z" fill="${shade}"/>
+    <path d="M20 28H28V32H20ZM28 52H64V56H28ZM32 48H60V52H32Z" fill="${light}"/>
+    <g class="cat-open-eyes"><path d="M28 32H36V44H28ZM56 32H64V44H56Z" fill="#302b44"/>
+    <path d="M28 32H32V36H28ZM56 32H60V36H56Z" fill="#fff8ef"/></g>
+    <path class="cat-happy-eyes" d="M24 36H28V32H36V36H40V40H36V36H28V40H24ZM52 36H56V32H64V36H68V40H64V36H56V40H52Z" fill="#302b44"/>
+    <path d="M20 44H28V48H20ZM64 44H72V48H64Z" fill="${ears}"/>
+    <path d="M40 40H52V44H48V48H44V44H40Z" fill="#b96f9b"/>
+    <path d="M36 48H40V52H44V48H48V52H52V48H56V52H52V56H48V52H44V56H40V52H36Z" fill="${outline}"/>
+    <path d="M28 60H64V64H28Z" fill="${collar}"/><path d="M44 60H52V68H44Z" fill="#efcf8f"/><path d="M44 60H48V64H44Z" fill="#fff0c8"/>
+    <path d="M28 88H32V92H28ZM56 88H60V92H56Z" fill="${shade}"/>
+  </svg>`;
 }
-document.querySelector('#peach-cat').innerHTML = pixelCat('#936e61','#e9bc96');
-document.querySelector('#mint-cat').innerHTML = pixelCat('#4e766f','#a4c2ad');
+document.querySelector('#peach-cat').innerHTML = pixelCat({outline:'#5e4677',fur:'#b997dc',light:'#e1cff5',shade:'#9b76be',ears:'#e6b6d5',collar:'#80609e'});
+document.querySelector('#mint-cat').innerHTML = pixelCat({outline:'#657080',fur:'#c8d0db',light:'#f0f2f7',shade:'#a0adbf',ears:'#d9b9ce',collar:'#9a82b7'});
 let catTimer, petCount = 0;
 function cuddleCats() {
   clearTimeout(catTimer); petCount++;
