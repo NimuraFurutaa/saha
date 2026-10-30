@@ -317,8 +317,8 @@ updateStars();
 const modal = $('#modal'), content = $('#content');
 function showModal(html) { content.innerHTML = html; if (!modal.open) modal.showModal(); }
 const dates = [
-  ['☕', 'kheli khari osgol', 'i loaf my gav'],
-  ['☾', 'hihihih', 'i really wanna be in our home together'],
+  ['☕', 'kheli khari osgol', 'I loaf my gav'],
+  ['☾', 'hihihih', 'I really wanna be in our home together'],
   ['❀', 'rangarangi', 'pishi bazi'],
   ['♨', 'osgol bazi donafare', 'ahmagho']
 ];
@@ -330,8 +330,8 @@ function openDate() {
 }
 $$('[data-room]').forEach(button => button.onclick = () => {
   if (button.dataset.room === 'letter') {
-    showModal('<div class="date-art" aria-hidden="true">✉</div><h2 id="modal-title">helloooo saha</h2><p>you are ma lil pretty mommy</p><button class="primary" id="secret">open it</button>');
-    $('#secret').onclick = event => { event.target.outerHTML = '<div class="reveal">im so glad for having you</div>'; hearts(); };
+    showModal('<div class="date-art" aria-hidden="true">✉</div><h2 id="modal-title">helloooo saha</h2><p>You are ma lil pretty mommy</p><button class="primary" id="secret">open it</button>');
+    $('#secret').onclick = event => { event.target.outerHTML = '<div class="reveal">I’m so glad to have you.</div>'; hearts(); };
   } else if (button.dataset.room === 'future') openDate();
   else {
     showModal('<div class="date-art" aria-hidden="true">✧</div><h2 id="modal-title">you wish</h2><label for="wish" class="hint">Put your wish in the bottle</label><textarea id="wish" maxlength="240" placeholder="us.one day"></textarea><button id="release-wish" class="primary">Let it fly ↑</button><p class="hint">Just for this moment. Your wish is not saved or sent anywhere.</p>');
@@ -341,7 +341,7 @@ $$('[data-room]').forEach(button => button.onclick = () => {
     };
   }
 });
-$('#moon').onclick = () => { showModal('<div class="date-art" aria-hidden="true">☾</div><h2 id="modal-title">moon</h2><p>us?</p><button id="moon-garden" class="primary">grow a floser for us</button>'); $('#moon-garden').onclick = () => { modal.close(); $('#garden').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'center' }); plant(300, 300); }; };
+$('#moon').onclick = () => { showModal('<div class="date-art" aria-hidden="true">☾</div><h2 id="modal-title">moon</h2><p>us?</p><button id="moon-garden" class="primary">Grow a flower for us</button>'); $('#moon-garden').onclick = () => { modal.close(); $('#garden').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'center' }); plant(300, 300); }; };
 $('.close').onclick = () => modal.close();
 modal.addEventListener('click', event => {
   const rect = modal.getBoundingClientRect();

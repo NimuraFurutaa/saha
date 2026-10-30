@@ -8,7 +8,7 @@ our little world
 our little galaxy
 
 [T003]
-for pishi saha
+For pishi Saha
 
 [T004]
 Rainy mood
@@ -50,22 +50,22 @@ A breeze in the leaves
 A soft start, just for you.
 
 [T017]
-my lil wife
+My lil wife
 
 [T018]
-all for
+All for
 
 [T019]
 
 
 [T020]
-saha.
+Saha.
 
 [T021]
 
 
 [T022]
-i loaf you ma baby
+I loaf you, ma baby
 
 [T023]
 hehe
@@ -80,7 +80,7 @@ Two cats beside a window on a rainy night
 Discover the secret of the moon
 
 [T027]
-2 little pishi
+Two little pishi
 
 [T028]
 01 / A little trace of you
@@ -221,7 +221,7 @@ Start over
 02 / A little patience, a little magic
 
 [T074]
-A garden you grow
+A garden Saha grows
 
 [T075]
 Interactive garden; tap to plant a flower
@@ -242,7 +242,7 @@ Start the garden over
 03 / Connect the distance
 
 [T081]
-Our constellation
+Your pretty heart
 
 [T082]
 Tap the glowing star
@@ -293,10 +293,10 @@ Pet the purple cat
 Pet the silver cat
 
 [T098]
-i want to hug you again
+I want to hug you again
 
 [T099]
-you know why i choos this soung
+You know why I chose this song?
 
 [T100]
 Lover Is a Day
@@ -470,13 +470,13 @@ ${fa.format(visitedStars)} of 8 stars
 kheli khari osgol
 
 [T157]
-i loaf my gav
+I loaf my gav
 
 [T158]
 hihihih
 
 [T159]
-i really wanna be in our home together
+I really wanna be in our home together
 
 [T160]
 rangarangi
@@ -500,13 +500,13 @@ Another little date ↶
 helloooo saha
 
 [T167]
-you are ma lil pretty mommy
+You are ma lil pretty mommy
 
 [T168]
 open it
 
 [T169]
-im so glad for having you
+I’m so glad to have you.
 
 [T170]
 you wish
@@ -536,7 +536,7 @@ moon
 us?
 
 [T179]
-grow a floser for us
+Grow a flower for us
 
 [T180]
 Ⅱ Pause rain
