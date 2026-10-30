@@ -28,17 +28,39 @@ function hearts() {
 // Drawings are stored as normalized vectors, so they survive resizing and export cleanly.
 const canvas = $('#drawing'), ctx = canvas.getContext('2d');
 const colors = $$('.swatch').map(el => el.dataset.color);
-const brushTypes = ['pen', 'heart', 'flower', 'mirror'];
+const brushTypes = ['pen', 'heart', 'flower', 'mirror', 'watercolor', 'rainbow', 'star', 'moon', 'cat', 'eraser'];
+const stampTypes = ['heart', 'flower', 'star', 'moon', 'cat'];
+const paperThemes = { cream: '#f7efdf', mint: '#e1eddf', rose: '#f3e1dc', night: '#183039' };
+let paperTheme = persister.read('our-world-paper-v1', 'cream');
+if (!Object.hasOwn(paperThemes, paperTheme)) paperTheme = 'cream';
+let undoHistory = [], redoHistory = [], replayFrame = null;
 let strokes = persister.read('our-world-drawing-v1', []);
 if (!Array.isArray(strokes)) strokes = [];
-strokes = strokes.filter(s => s && colors.includes(s.color) && brushTypes.includes(s.brush) && Number.isFinite(s.size) && s.size >= 2 && s.size <= 18 && Array.isArray(s.points) && s.points.length <= 5000 && s.points.every(p => Array.isArray(p) && p.length === 2 && p.every(n => Number.isFinite(n) && n >= 0 && n <= 1))).slice(-150);
-let color = colors[0], brush = 'pen', brushSize = 5, currentStroke = null, activePointer = null;
+strokes = strokes.filter(s => s && /^#[0-9a-f]{6}$/i.test(s.color) && brushTypes.includes(s.brush) && Number.isFinite(s.size) && s.size >= 2 && s.size <= 18 && (s.opacity === undefined || (Number.isFinite(s.opacity) && s.opacity >= .15 && s.opacity <= 1)) && Array.isArray(s.points) && s.points.length > 0 && s.points.length <= 5000 && s.points.every(p => Array.isArray(p) && p.length === 2 && p.every(n => Number.isFinite(n) && n >= 0 && n <= 1)));
+let color = colors[0], brush = 'pen', brushSize = 5, brushOpacity = 1, currentStroke = null, activePointer = null;
 let canvasWidth = 1, canvasHeight = 1;
 function stamp(context, x, y, size, type, ink) {
   context.save(); context.translate(x, y); context.fillStyle = ink;
   if (type === 'heart') {
     context.scale(size / 20, size / 20); context.beginPath(); context.moveTo(0, 8);
     context.bezierCurveTo(-22, -5, -7, -21, 0, -9); context.bezierCurveTo(7, -21, 22, -5, 0, 8); context.fill();
+  } else if (type === 'star') {
+    context.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const a = i * Math.PI / 5 - Math.PI / 2, r = size * (i % 2 ? .38 : .9);
+      context.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+    }
+    context.closePath(); context.fill();
+  } else if (type === 'moon') {
+    context.beginPath(); context.arc(0, 0, size * .8, .6, Math.PI * 2 - .6);
+    context.quadraticCurveTo(-size * .45, 0, Math.cos(.6) * size * .8, Math.sin(.6) * size * .8); context.fill();
+  } else if (type === 'cat') {
+    context.scale(size / 20, size / 20); context.beginPath(); context.moveTo(-16, -5);
+    context.lineTo(-18, -22); context.lineTo(-6, -13); context.quadraticCurveTo(0, -16, 6, -13);
+    context.lineTo(18, -22); context.lineTo(16, -5); context.bezierCurveTo(23, 20, -23, 20, -16, -5); context.fill();
+    context.strokeStyle = '#f7efdf'; context.lineWidth = 1.5; context.beginPath();
+    context.moveTo(-10, -2); context.lineTo(-6, 0); context.lineTo(-3, -2);
+    context.moveTo(3, -2); context.lineTo(6, 0); context.lineTo(10, -2); context.moveTo(-2, 5); context.lineTo(0, 7); context.lineTo(2, 5); context.stroke();
   } else {
     for (let i = 0; i < 5; i++) {
       context.save(); context.rotate(i * Math.PI * 2 / 5); context.beginPath(); context.ellipse(0, -size * .45, size * .25, size * .45, 0, 0, Math.PI * 2); context.fill(); context.restore();
@@ -48,15 +70,39 @@ function stamp(context, x, y, size, type, ink) {
   context.restore();
 }
 function renderStroke(context, stroke, width, height) {
+  context.save();
+  context.globalAlpha = stroke.opacity ?? 1;
+  if (stroke.brush === 'eraser') context.globalCompositeOperation = 'destination-out';
+  renderStrokeInk(context, stroke, width, height);
+  context.restore();
+}
+function renderStrokeInk(context, stroke, width, height) {
   const scale = Math.min(width, height) / 420, lineWidth = stroke.size * scale;
-  if (stroke.brush === 'heart' || stroke.brush === 'flower') {
+  if (stampTypes.includes(stroke.brush)) {
     stroke.points.forEach(([x, y]) => stamp(context, x * width, y * height, (stroke.size + 12) * scale, stroke.brush, stroke.color)); return;
+  }
+  if (stroke.brush === 'watercolor') {
+    const radius = (stroke.size + 9) * scale;
+    stroke.points.forEach(([x, y]) => {
+      const gradient = context.createRadialGradient(x * width, y * height, 0, x * width, y * height, radius);
+      gradient.addColorStop(0, stroke.color + '38'); gradient.addColorStop(.6, stroke.color + '18'); gradient.addColorStop(1, stroke.color + '00');
+      context.fillStyle = gradient; context.fillRect(x * width - radius, y * height - radius, radius * 2, radius * 2);
+    }); return;
+  }
+  if (stroke.brush === 'rainbow') {
+    context.lineWidth = lineWidth; context.lineCap = 'round';
+    stroke.points.forEach(([x, y], i) => {
+      const previous = stroke.points[Math.max(0, i - 1)];
+      context.strokeStyle = context.fillStyle = `hsl(${(x * 360 + y * 180) % 360} 65% 60%)`;
+      context.beginPath(); context.moveTo(previous[0] * width, previous[1] * height); context.lineTo(x * width, y * height); context.stroke();
+      if (!i) { context.beginPath(); context.arc(x * width, y * height, lineWidth / 2, 0, Math.PI * 2); context.fill(); }
+    }); return;
   }
   const path = mirror => {
     context.beginPath(); context.strokeStyle = stroke.color; context.fillStyle = stroke.color;
-    context.lineWidth = lineWidth; context.lineCap = 'round'; context.lineJoin = 'round';
+    context.lineWidth = stroke.brush === 'eraser' ? lineWidth * 4 : lineWidth; context.lineCap = 'round'; context.lineJoin = 'round';
     const points = stroke.points.map(([x, y]) => [(mirror ? 1 - x : x) * width, y * height]);
-    if (points.length === 1) { context.arc(points[0][0], points[0][1], lineWidth / 2, 0, Math.PI * 2); context.fill(); return; }
+    if (points.length === 1) { context.arc(points[0][0], points[0][1], context.lineWidth / 2, 0, Math.PI * 2); context.fill(); return; }
     points.forEach(([x, y], i) => i ? context.lineTo(x, y) : context.moveTo(x, y)); context.stroke();
   };
   path(false); if (stroke.brush === 'mirror') path(true);
@@ -66,7 +112,8 @@ function renderDrawing() {
   strokes.forEach(s => renderStroke(ctx, s, canvasWidth, canvasHeight));
   if (currentStroke) renderStroke(ctx, currentStroke, canvasWidth, canvasHeight);
   $('#canvas-hint').classList.toggle('hidden', strokes.length > 0 || !!currentStroke);
-  $('#undo').disabled = strokes.length === 0;
+  $('#undo').disabled = strokes.length === 0 && undoHistory.length === 0;
+  $('#redo').disabled = redoHistory.length === 0;
 }
 function resizeCanvas() {
   const rect = canvas.getBoundingClientRect(), ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -83,22 +130,25 @@ function point(event) {
   const rect = canvas.getBoundingClientRect();
   return [Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)), Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height))];
 }
+// Drawing gestures should not become double-taps or synthetic clicks on the next tool.
+canvas.addEventListener('touchstart', event => { if (event.cancelable) event.preventDefault(); }, { passive: false });
 canvas.addEventListener('pointerdown', event => {
   if (activePointer !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
+  stopReplay(); canvas.focus({ preventScroll: true });
   activePointer = event.pointerId; canvas.setPointerCapture(event.pointerId);
-  currentStroke = { color, brush, size: brushSize, points: [point(event)] }; renderDrawing();
+  currentStroke = { color, brush, size: brushSize, opacity: brushOpacity, points: [point(event)] }; renderDrawing();
 });
 canvas.addEventListener('pointermove', event => {
   if (event.pointerId !== activePointer || !currentStroke || currentStroke.points.length >= 5000) return;
   const p = point(event), prev = currentStroke.points.at(-1);
   const distance = Math.hypot((p[0] - prev[0]) * canvasWidth, (p[1] - prev[1]) * canvasHeight);
-  const threshold = ['heart', 'flower'].includes(currentStroke.brush) ? (currentStroke.size + 12) * Math.min(canvasWidth, canvasHeight) / 420 * 1.5 : 1;
+  const threshold = stampTypes.includes(currentStroke.brush) ? (currentStroke.size + 12) * Math.min(canvasWidth, canvasHeight) / 420 * 1.5 : currentStroke.brush === 'watercolor' ? 4 : 1;
   if (distance < threshold) return;
   currentStroke.points.push(p); renderDrawing();
 });
 function finishStroke(event) {
   if (event.pointerId !== activePointer) return;
-  if (currentStroke) { strokes.push(currentStroke); if (strokes.length > 150) strokes.shift(); currentStroke = null; }
+  if (currentStroke) { commitDrawing([...strokes, currentStroke]); currentStroke = null; }
   activePointer = null; renderDrawing(); saveDrawing();
 }
 ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => canvas.addEventListener(type, finishStroke));
@@ -111,23 +161,104 @@ $$('[data-brush]').forEach(button => button.addEventListener('click', () => {
   $$('[data-brush]').forEach(el => { el.classList.toggle('selected', el === button); el.setAttribute('aria-pressed', el === button); });
 }));
 $('#brush-size').addEventListener('input', event => { brushSize = +event.target.value; });
-$('#undo').addEventListener('click', () => { strokes.pop(); renderDrawing(); saveDrawing(); });
+$('#brush-opacity').addEventListener('input', event => { brushOpacity = +event.target.value / 100; });
+$('#custom-color').addEventListener('input', event => { color = event.target.value; $$('.swatch').forEach(el => { el.classList.remove('selected'); el.setAttribute('aria-pressed', 'false'); }); });
+function stopReplay() { if (replayFrame !== null) { cancelAnimationFrame(replayFrame); replayFrame = null; renderDrawing(); } $('#replay-drawing').textContent = '▷ بازپخش'; }
+function commitDrawing(next) {
+  stopReplay(); undoHistory.push(strokes); if (undoHistory.length > 40) undoHistory.shift();
+  redoHistory = []; strokes = next; renderDrawing(); saveDrawing();
+}
+function undoDrawing() {
+  stopReplay(); if (!strokes.length && !undoHistory.length) return;
+  redoHistory.push(strokes); strokes = undoHistory.length ? undoHistory.pop() : strokes.slice(0, -1); renderDrawing(); saveDrawing();
+}
+function redoDrawing() { stopReplay(); if (!redoHistory.length) return; undoHistory.push(strokes); strokes = redoHistory.pop(); renderDrawing(); saveDrawing(); }
+$('#undo').addEventListener('click', undoDrawing);
+$('#redo').addEventListener('click', redoDrawing);
+$('.drawing-studio').addEventListener('keydown', event => {
+  if (event.target.matches('input, textarea, select') || !(event.ctrlKey || event.metaKey)) return;
+  if (event.key.toLowerCase() === 'z') { event.preventDefault(); event.shiftKey ? redoDrawing() : undoDrawing(); }
+  if (event.key.toLowerCase() === 'y') { event.preventDefault(); redoDrawing(); }
+});
+$('#replay-drawing').onclick = () => {
+  if (replayFrame !== null) { stopReplay(); return; }
+  if (!strokes.length || reducedMotion.matches) { renderDrawing(); return; }
+  const start = performance.now(), count = strokes.reduce((sum, s) => sum + s.points.length, 0);
+  $('#replay-drawing').textContent = 'Ⅱ پایان بازپخش';
+  const frame = time => {
+    let left = Math.ceil(Math.min(1, (time - start) / 3500) * count);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    for (const s of strokes) { if (left <= 0) break; renderStroke(ctx, {...s, points: s.points.slice(0, left)}, canvasWidth, canvasHeight); left -= s.points.length; }
+    if (time - start < 3500) replayFrame = requestAnimationFrame(frame); else { replayFrame = null; stopReplay(); renderDrawing(); }
+  };
+  replayFrame = requestAnimationFrame(frame);
+};
+function applyPaper() {
+  $('.canvas-wrap').style.backgroundColor = paperThemes[paperTheme];
+  $('.canvas-wrap').classList.toggle('night-paper', paperTheme === 'night');
+  $('#paper-theme').value = paperTheme;
+}
+$('#paper-theme').onchange = event => { paperTheme = event.target.value; applyPaper(); persister.write('our-world-paper-v1', paperTheme); };
+applyPaper();
+$$('[data-template]').forEach(button => button.onclick = () => {
+  const additions = [], make = (b, points, c = color, size = 5) => ({ brush: b, color: c, size, opacity: 1, points });
+  if (button.dataset.template === 'heart') {
+    const points = Array.from({ length: 101 }, (_, i) => { const t = i / 100 * Math.PI * 2; return [.5 + .19 * Math.sin(t) ** 3, .45 - .018 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))]; });
+    additions.push(make('pen', points, color, 3));
+  } else if (button.dataset.template === 'wreath') {
+    for (let i = 0; i < 14; i++) { const t = i * Math.PI / 7; additions.push(make('flower', [[.5 + Math.cos(t) * .25, .5 + Math.sin(t) * .32]], colors[i % colors.length], 9)); }
+  } else {
+    additions.push(make('moon', [[.5, .37]], '#d6a44b', 18));
+    [[.2,.25],[.3,.62],[.7,.24],[.8,.54],[.62,.7],[.4,.18]].forEach(p => additions.push(make('star', [p], '#d6a44b', 6)));
+  }
+  commitDrawing([...strokes, ...additions]);
+});
+const drawingIdeas = ['با قلم آینه یک پروانه بساز؛ دو بال، یک حرکت.', 'دو گربه زیر ماه؛ یکی تو، یکی من.', 'با آبرنگ یک غروب بکش، بعد چند ستاره روی آن بکار.', 'شابلون قلب را بزن و دورش گل بکش.', 'یک سیاره‌ی تازه اختراع کن؛ رنگ‌هایش با تو.', 'یک دسته‌گل که در دنیای واقعی وجود ندارد!'];
+let drawingIdeaIndex = 0;
+$('#drawing-idea').onclick = () => { $('#idea-hint').textContent = drawingIdeas[drawingIdeaIndex++ % drawingIdeas.length]; };
+
 $('#clear-drawing').addEventListener('click', () => {
   if (!strokes.length) return;
   showModal('<h2 id="modal-title">یک بوم تازه؟</h2><p>نقاشی فعلی پاک می‌شود. اگر دوستش داری، اول از آن یادگاری بگیر.</p><button id="confirm-clear" class="primary">پاک کن و از نو شروع کنیم</button>');
-  $('#confirm-clear').onclick = () => { strokes = []; renderDrawing(); saveDrawing(); modal.close(); };
+  $('#confirm-clear').onclick = () => { commitDrawing([]); modal.close(); };
 });
-$('#download').addEventListener('click', () => {
-  const output = document.createElement('canvas'); output.width = 1600; output.height = Math.round(1600 * canvasHeight / canvasWidth);
-  const ink = output.getContext('2d'); ink.fillStyle = '#f7efdf'; ink.fillRect(0, 0, output.width, output.height);
+function makeArt(width = 1600) {
+  const output = document.createElement('canvas'); output.width = width; output.height = Math.round(width * canvasHeight / canvasWidth);
+  const ink = output.getContext('2d');
+  // Render on transparency first: the eraser must not punch holes through the paper.
   strokes.forEach(s => renderStroke(ink, s, output.width, output.height));
-  ink.fillStyle = '#80917e'; ink.font = '16px Georgia'; ink.fillText('MADE BY US ♡', 30, output.height - 25);
+  ink.globalCompositeOperation = 'destination-over'; ink.fillStyle = paperThemes[paperTheme]; ink.fillRect(0, 0, output.width, output.height); ink.globalCompositeOperation = 'source-over';
+  return output;
+}
+function downloadCanvas(output, filename) {
   output.toBlob(blob => {
     if (!blob) { $('#save-status').textContent = 'ذخیره نشد؛ دوباره امتحان کن.'; return; }
-    const url = URL.createObjectURL(blob), link = document.createElement('a'); link.download = 'our-little-world.png'; link.href = url; link.click();
+    const url = URL.createObjectURL(blob), link = document.createElement('a'); link.download = filename; link.href = url; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 10000); $('#save-status').textContent = 'یک تکه از جهانمان، برای نگه داشتن ♡';
   }, 'image/png');
+}
+$('#download').addEventListener('click', () => {
+  const output = makeArt(), ink = output.getContext('2d');
+  ink.fillStyle = '#80917e'; ink.font = '16px Georgia'; ink.fillText('MADE BY US ♡', 30, output.height - 25);
+  downloadCanvas(output, 'our-little-world.png');
 });
+$('#postcard').onclick = () => {
+  stopReplay();
+  showModal('<h2 id="modal-title">از دست‌های تو، برای او</h2><canvas id="postcard-preview" width="1000" height="1000" aria-label="پیش‌نمایش کارت‌پستال نقاشی"></canvas><div class="postcard-controls"><label>قاب <select id="postcard-frame"><option value="cream">کاغذ قدیمی</option><option value="rose">گل‌بهی</option><option value="night">شبِ پرستاره</option></select></label><label for="postcard-message">یک امضای کوتاه</label><input id="postcard-message" maxlength="50" value="یک تکه از جهانِ ما ♡"><button id="download-postcard" class="primary">↓ ذخیره‌ی کارت‌پستال</button></div>');
+  const preview = $('#postcard-preview'), c = preview.getContext('2d'), art = makeArt(880);
+  function drawPostcard() {
+    const theme = $('#postcard-frame').value;
+    c.fillStyle = paperThemes[theme]; c.fillRect(0, 0, 1000, 1000);
+    c.strokeStyle = theme === 'night' ? '#c4ad77' : '#ae9871'; c.lineWidth = 2; c.strokeRect(28, 28, 944, 944);
+    const ratio = Math.min(880 / art.width, 700 / art.height), w = art.width * ratio, h = art.height * ratio;
+    c.save(); c.shadowColor = '#00000022'; c.shadowBlur = 20; c.shadowOffsetY = 9; c.drawImage(art, (1000-w)/2, 70 + (700-h)/2, w, h); c.restore();
+    c.fillStyle = theme === 'night' ? '#ead6ad' : '#435c4e'; c.font = '30px Tahoma'; c.textAlign = 'center'; c.direction = 'rtl';
+    c.fillText($('#postcard-message').value, 500, 858, 850); c.font = '15px Georgia'; c.fillText('MADE BY US • WITH LOVE', 500, 920);
+    for (const [x,y] of [[65,55],[935,55],[65,945],[935,945]]) stamp(c,x,y,10,'star','#b09a6d');
+  }
+  $('#postcard-frame').onchange = drawPostcard; $('#postcard-message').oninput = drawPostcard;
+  $('#download-postcard').onclick = () => downloadCanvas(preview, 'a-postcard-for-you.png'); drawPostcard();
+};
 
 // A small, locally remembered garden. All SVG values come from validated numbers.
 let flowers = persister.read('our-world-garden-v1', []);
