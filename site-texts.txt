@@ -330,16 +330,16 @@ MADE BY US ♡
 Lover Is a Day
 
 [T101] | index.html:55
-Cuco · نسخه‌ی اصلی · Spotify
+Cuco · یک آهنگ برای ما
 
 [T102] | index.html:55
-♫ بازکردن پخش‌کننده
+پخش آهنگ Lover Is a Day
 
 [T103] | index.html:55
-شنیدن در Spotify ↗
+مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
 
 [T104] | index.html:55
-پخش را از داخل پخش‌کننده شروع کن؛ اگر باز نشد، لینک Spotify را بزن.
+برای شروع، دکمه‌ی پخش را بزن ♡
 
 =======================================================
 مینی‌گیم
@@ -608,45 +608,39 @@ ${fa.format(visitedStars)} از ۸ ستاره
 آهنگ: پیام‌های پخش
 =======================================================
 
-[T182] | extras.js:48
-پخش Lover Is a Day از Cuco در Spotify
-
-[T183] | extras.js:55
-بستن پخش‌کننده
-
-[T184] | extras.js:55
-♫ بازکردن پخش‌کننده
+[T182] | extras.js:44
+آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.
 
 =======================================================
 مینی‌گیم: کارت‌ها و پیام‌ها
 =======================================================
 
-[T185] | extras.js:58
+[T183] | extras.js:46
 قلب
 
-[T186] | extras.js:58
+[T184] | extras.js:46
 ماه
 
-[T187] | extras.js:58
+[T185] | extras.js:46
 گل
 
-[T188] | extras.js:58
+[T186] | extras.js:46
 پیشی
 
-[T189] | extras.js:65
+[T187] | extras.js:53
 کارت ${index+1}، بسته
 
-[T190] | extras.js:66
+[T188] | extras.js:54
 ۰ جفت از ۴
 
-[T191] | extras.js:66
+[T189] | extras.js:54
 بدون عجله؛ این بازی زمان‌سنج ندارد.
 
-[T192] | extras.js:76
+[T190] | extras.js:64
 ${new Intl.NumberFormat('fa').format(matchedPairs)} جفت از ۴
 
-[T193] | extras.js:77
+[T191] | extras.js:65
 همه به هم رسیدند! با ${new Intl.NumberFormat('fa').format(moves)} حرکت ♡
 
-[T194] | extras.js:79
+[T192] | extras.js:67
 کارت ${i+1}، بسته

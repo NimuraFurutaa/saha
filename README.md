@@ -34,6 +34,6 @@ No API keys, external fonts or audio downloads are required. To publish, serve t
 
 ## Pixel cats, music and mini-game
 
-`extras.js` adds original pixel cats that cuddle when petted, a shuffled four-pair memory game, and a user-opened official Spotify embed of Cuco's original recording of Lover Is a Day. A direct Spotify link is always available; playback availability depends on Spotify and the listener's account. No song files are hosted in this repository.
+`extras.js` adds original pixel cats that cuddle when petted, a shuffled four-pair memory game, and a native audio player for the user-provided recording of Lover Is a Day, stored under `media/`.
 
 `site-texts.txt` contains categorized editable copy, source locations, and dynamic placeholders. Edit the entries and use them to update the referenced source strings; the inventory is not a runtime translation file. Regenerate it with `python3 scripts/export-texts.py` after source changes.

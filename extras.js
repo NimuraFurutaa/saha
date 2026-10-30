@@ -38,22 +38,10 @@ function cuddleCats() {
   catTimer=setTimeout(()=>couple.classList.remove('cuddling'),2400);
 }
 document.querySelectorAll('.pixel-cat').forEach(button=>button.addEventListener('click',cuddleCats));
-const songButton=document.querySelector('#song-play');
-songButton.onclick=()=>{
-  const player=document.querySelector('#spotify-player');
-  const open=player.hidden;
-  if(open && !player.firstElementChild){
-    const frame=document.createElement('iframe');
-    frame.src='https://open.spotify.com/embed/track/1ucnuV88gFTfR3BalmznDk?utm_source=generator&theme=0';
-    frame.title='پخش Lover Is a Day از Cuco در Spotify';
-    frame.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-    frame.allowFullscreen=true;frame.width='100%';frame.height='352';
-    player.append(frame);
-  }
-  // Keep the same frame when closing, so its playback state is not lost.
-  player.hidden=!open;songButton.setAttribute('aria-expanded',open);
-  songButton.textContent=open?'بستن پخش‌کننده':'♫ بازکردن پخش‌کننده';
-};
+const songAudio=document.querySelector('#lover-song');
+function syncSong(){document.querySelector('.music-gift').classList.toggle('song-playing',!songAudio.paused);}
+['play','pause','ended'].forEach(type=>songAudio.addEventListener(type,syncSong));
+songAudio.addEventListener('error',()=>{document.querySelector('#song-status').textContent='آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.';});
 
 const symbols=[{icon:'♥',name:'قلب'},{icon:'☾',name:'ماه'},{icon:'✿',name:'گل'},{icon:'=^.^=',name:'پیشی'}];
 let memoryDeck=[],openCards=[],matchedPairs=0,moves=0,lockBoard=false,memoryTimer=null;

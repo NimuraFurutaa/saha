@@ -55,7 +55,7 @@ for filename in ('app.js','extras.js'):
             elif offset<source.index('class RainSoundscape'):section='نامه، قرارها، آرزو و راز ماه'
             else:section='باران: پیام‌ها'
         else:
-            section='پیشی‌ها: پیام‌های نوازش' if offset<source.index('const songButton') else 'آهنگ: پیام‌های پخش' if offset<source.index('const symbols=') else 'مینی‌گیم: کارت‌ها و پیام‌ها'
+            section='پیشی‌ها: پیام‌های نوازش' if offset<source.index('const songAudio') else 'آهنگ: پیام‌های پخش' if offset<source.index('const symbols=') else 'مینی‌گیم: کارت‌ها و پیام‌ها'
         parser=CopyParser();parser.feed(body)
         for text in parser.parts:add(section,text,f'{filename}:{line}')
 lines=['متن‌های جهان کوچک ما — نسخه قابل ویرایش','', 'راهنما: متن هر شناسه را جایگزین کن و این فایل را برگردان تا تغییرها را روی سایت اعمال کنم.', 'این فایل فهرست متن‌هاست؛ ویرایش آن به‌تنهایی متن داخل سایت را تغییر نمی‌دهد.', 'بخش‌های ${...} جای عدد، نام یا نتیجه‌ی بازی هستند؛ آن‌ها را دست‌نخورده بگذار.', 'متن‌های دسترس‌پذیری (توضیح دکمه برای صفحه‌خوان) هم در این فهرست آمده‌اند.', '']

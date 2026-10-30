@@ -8,3 +8,4 @@
 .music-gift{flex-wrap:wrap}.spotify-player{flex:0 0 100%;min-width:0}.spotify-player iframe{display:block;border:0;border-radius:12px;width:100%}.spotify-player[hidden]{display:none}.music-copy{flex:1}@media(max-width:600px){.spotify-player{width:100%;flex-basis:auto}}
 
 .pixel-cat{width:96px}.pixel-cat svg{filter:drop-shadow(0 4px 0 #081e2433)}.cat-happy-eyes{display:none}.cuddling .cat-open-eyes{display:none}.cuddling .cat-happy-eyes{display:block}.pixel-room{background:radial-gradient(ellipse at 30% 85%,#ad87d322,transparent 40%),radial-gradient(ellipse at 70% 85%,#d4deec18,transparent 40%),#153831}@media(max-width:600px){.pixel-cat{width:82px}}
+.music-copy audio{display:block;width:min(100%,380px);margin:14px 0;direction:ltr}.music-copy audio:focus-visible{outline:2px solid #ddb471;outline-offset:5px}@media(max-width:600px){.music-copy audio{margin:14px auto}}
