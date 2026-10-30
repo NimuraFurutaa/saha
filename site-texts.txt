@@ -612,3 +612,6 @@ All together again! ${new Intl.NumberFormat('en').format(moves)} moves ♡
 
 [T204]
 Card ${i+1}, face down
+
+[T205]
+Spiral

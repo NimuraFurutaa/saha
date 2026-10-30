@@ -15,7 +15,7 @@ Open the served page in a browser. You can also open `index.html` directly, alth
 ## Experiences
 
 - Animated SVG illustration: two cats, a rainy window, plants and tea.
-- Drawing canvas with pen, heart, flower, mirror, watercolor, rainbow, star, moon, cat and eraser tools; custom color, opacity, undo/redo, recoverable clear and PNG download.
+- Drawing canvas with pen, heart, flower, mirror, watercolor, rainbow, star, moon, cat, spiral and eraser tools; custom color, opacity, undo/redo, recoverable clear and PNG download.
 - Additive heart, floral wreath and sky templates, four paper colors, drawing replay and creative prompts.
 - Export a framed postcard with a personal caption. Existing saved drawings remain compatible.
 - Tap-to-plant garden and an eight-star constellation puzzle.

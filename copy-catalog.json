@@ -202,5 +202,6 @@
   "T201": "Take your time. There is no timer.",
   "T202": "${new Intl.NumberFormat('en').format(matchedPairs)} of 4 pairs",
   "T203": "All together again! ${new Intl.NumberFormat('en').format(moves)} moves ♡",
-  "T204": "Card ${i+1}, face down"
+  "T204": "Card ${i+1}, face down",
+  "T205": "Spiral"
 }

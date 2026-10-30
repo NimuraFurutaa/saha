@@ -28,8 +28,8 @@ function hearts() {
 // Drawings are stored as normalized vectors, so they survive resizing and export cleanly.
 const canvas = $('#drawing'), ctx = canvas.getContext('2d');
 const colors = $$('.swatch').map(el => el.dataset.color);
-const brushTypes = ['pen', 'heart', 'flower', 'mirror', 'watercolor', 'rainbow', 'star', 'moon', 'cat', 'eraser'];
-const stampTypes = ['heart', 'flower', 'star', 'moon', 'cat'];
+const brushTypes = ['pen', 'heart', 'flower', 'mirror', 'watercolor', 'rainbow', 'star', 'moon', 'cat', 'spiral', 'eraser'];
+const stampTypes = ['heart', 'flower', 'star', 'moon', 'cat', 'spiral'];
 const paperThemes = { cream: '#f7efdf', mint: '#e1eddf', rose: '#f3e1dc', night: '#183039' };
 let paperTheme = persister.read('our-world-paper-v1', 'cream');
 if (!Object.hasOwn(paperThemes, paperTheme)) paperTheme = 'cream';
@@ -41,7 +41,16 @@ let color = colors[0], brush = 'pen', brushSize = 5, brushOpacity = 1, currentSt
 let canvasWidth = 1, canvasHeight = 1;
 function stamp(context, x, y, size, type, ink) {
   context.save(); context.translate(x, y); context.fillStyle = ink;
-  if (type === 'heart') {
+  if (type === 'spiral') {
+    context.strokeStyle = ink; context.lineWidth = Math.max(1, size * .085); context.lineCap = 'round'; context.lineJoin = 'round';
+    context.beginPath();
+    for (let i = 0; i <= 160; i++) {
+      const t = i / 160 * Math.PI * 5.4, r = size * (.03 + i / 160 * .82);
+      const px = Math.cos(t) * r, py = Math.sin(t) * r;
+      if (i === 0) context.moveTo(px, py); else context.lineTo(px, py);
+    }
+    context.stroke();
+  } else if (type === 'heart') {
     context.scale(size / 20, size / 20); context.beginPath(); context.moveTo(0, 8);
     context.bezierCurveTo(-22, -5, -7, -21, 0, -9); context.bezierCurveTo(7, -21, 22, -5, 0, 8); context.fill();
   } else if (type === 'star') {
