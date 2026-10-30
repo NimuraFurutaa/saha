@@ -39,9 +39,46 @@ function cuddleCats() {
 }
 document.querySelectorAll('.pixel-cat').forEach(button=>button.addEventListener('click',cuddleCats));
 const songAudio=document.querySelector('#lover-song');
-function syncSong(){document.querySelector('.music-gift').classList.toggle('song-playing',!songAudio.paused);}
+const songToggle=document.querySelector('#song-toggle'), songSeek=document.querySelector('#song-seek');
+const songStatus=document.querySelector('#song-status');
+const formatSongTime=seconds=>Number.isFinite(seconds)?`${Math.floor(seconds/60)}:${String(Math.floor(seconds%60)).padStart(2,'0')}`:'—:—';
+function syncSong(){
+ const playing=!songAudio.paused&&!songAudio.ended;
+ document.querySelector('.music-gift').classList.toggle('song-playing',playing);
+ songToggle.setAttribute('aria-pressed',playing);songToggle.setAttribute('aria-label',playing?'توقف آهنگ':'پخش آهنگ');
+ document.querySelector('#song-toggle-icon').textContent=playing?'Ⅱ':'▶';
+}
+function syncSongTime(){
+ const duration=songAudio.duration, ready=Number.isFinite(duration)&&duration>0;
+ songSeek.disabled=!ready;
+ const progress=ready?Math.min(1000,Math.round(songAudio.currentTime/duration*1000)):0;
+ songSeek.value=progress;songSeek.style.setProperty('--progress',`${progress/10}%`);
+ songSeek.setAttribute('aria-valuetext',`${formatSongTime(songAudio.currentTime)} از ${formatSongTime(duration)}`);
+ document.querySelector('#song-elapsed').textContent=formatSongTime(songAudio.currentTime);
+ document.querySelector('#song-duration').textContent=formatSongTime(duration);
+}
 ['play','pause','ended'].forEach(type=>songAudio.addEventListener(type,syncSong));
-songAudio.addEventListener('error',()=>{document.querySelector('#song-status').textContent='آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.';});
+['loadedmetadata','durationchange','timeupdate','seeked','emptied'].forEach(type=>songAudio.addEventListener(type,syncSongTime));
+songToggle.onclick=async()=>{
+ if(!songAudio.paused){songAudio.pause();return;}
+ songToggle.disabled=true;songStatus.textContent='آهنگ در حال آماده‌شدن است…';
+ let timeout;
+ try{
+  await Promise.race([songAudio.play(),new Promise((_,reject)=>{timeout=setTimeout(()=>{songAudio.pause();reject(new Error('timeout'));},12000);})]);
+  songStatus.textContent='این چند دقیقه، فقط برای ما ♡';
+ }catch{songStatus.textContent='پخش شروع نشد؛ دوباره دکمه‌ی پخش را بزن.';}
+ finally{clearTimeout(timeout);songToggle.disabled=false;syncSong();}
+};
+songSeek.addEventListener('input',()=>{if(Number.isFinite(songAudio.duration))songAudio.currentTime=Number(songSeek.value)/1000*songAudio.duration;syncSongTime();});
+function skipSong(seconds){if(Number.isFinite(songAudio.duration))songAudio.currentTime=Math.max(0,Math.min(songAudio.duration,songAudio.currentTime+seconds));}
+document.querySelector('#song-back').onclick=()=>skipSong(-10);
+document.querySelector('#song-forward').onclick=()=>skipSong(10);
+document.querySelector('#song-repeat').onclick=event=>{songAudio.loop=!songAudio.loop;event.currentTarget.setAttribute('aria-pressed',songAudio.loop);};
+songAudio.volume=.8;
+document.querySelector('#song-volume').addEventListener('input',event=>{songAudio.volume=Number(event.target.value);});
+songAudio.addEventListener('error',()=>{songStatus.textContent='آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.';syncSong();});
+document.querySelector('#song-console').hidden=false;songAudio.controls=false;songAudio.hidden=true;
+syncSong();syncSongTime();
 
 const symbols=[{icon:'♥',name:'قلب'},{icon:'☾',name:'ماه'},{icon:'✿',name:'گل'},{icon:'=^.^=',name:'پیشی'}];
 let memoryDeck=[],openCards=[],matchedPairs=0,moves=0,lockBoard=false,memoryTimer=null;
