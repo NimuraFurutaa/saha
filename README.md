@@ -27,7 +27,8 @@ Drawings and flowers remain in this browser's local storage when available. They
 ## Files
 
 - `index.html`: page structure and illustration.
-- `style.css`: layout, responsive styles and animations.
+- `style.css`: layout, responsive styles and base animations.
+- `motion.css`: final motion timing, scene entrances, dialog transitions and reduced-motion overrides.
 - `app.js`: drawing, garden, constellation, dialogs, local persistence and Web Audio synthesis.
 
 No API keys, external fonts or audio downloads are required. To publish, serve these three files together using any static web host.
@@ -37,3 +38,5 @@ No API keys, external fonts or audio downloads are required. To publish, serve t
 `extras.js` adds original pixel cats that cuddle when petted, a shuffled four-pair memory game, and a native audio player for the user-provided recording of Lover Is a Day, stored under `media/`.
 
 `copy-catalog.json` records all 204 stable text IDs, including the 37 personal edits. `site-texts.txt` is the easy-to-edit export. Keep IDs and dynamic ${...} placeholders intact when sending changes back. The catalog is a reference, not a runtime translation file; update source strings alongside catalog entries. Regenerate the text export with `python3 scripts/export-texts.py`.
+
+Motion respects live changes to reduced-motion settings. Decorative animations pause when scenes are off screen or the browser tab is hidden; audio playback continues.

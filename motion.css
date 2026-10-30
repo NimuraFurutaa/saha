@@ -1,0 +1,49 @@
+/* A finishing pass over existing scenes and interactions. */
+:root{--ease-soft:cubic-bezier(.2,.75,.25,1);--motion-fast:180ms;--motion-medium:320ms}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button,a.primary{transition:color var(--motion-fast),background-color var(--motion-fast),border-color var(--motion-fast),box-shadow var(--motion-medium),transform var(--motion-medium) var(--ease-soft),scale var(--motion-fast) var(--ease-soft)}
+button:active:not(:disabled),a.primary:active{scale:.97}
+button:disabled{scale:1}
+.motion-ready .appear{opacity:0;transform:translateY(16px);transition:opacity 650ms var(--ease-soft),transform 650ms var(--ease-soft);transition-delay:var(--scene-delay,0ms)}
+.motion-ready .appear.visible{opacity:1;transform:none}
+header{animation:quiet-entry 650ms var(--ease-soft) both}
+.hero-copy>.eyebrow,.hero-copy h1,.hero-copy>p,.hero-copy>.primary,.hero-note{animation:quiet-entry 800ms var(--ease-soft) both}
+.hero-copy>.eyebrow{animation-delay:60ms}.hero-copy h1{animation-delay:120ms}.hero-copy>p{animation-delay:190ms}.hero-copy>.primary{animation-delay:260ms}.hero-note{animation-delay:320ms}
+.scene-wrap{animation:scene-entry 1100ms var(--ease-soft) 100ms both}
+@keyframes quiet-entry{from{opacity:0;translate:0 9px}to{opacity:1;translate:0 0}}
+@keyframes scene-entry{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+.card{transition:transform 420ms var(--ease-soft),background-color 320ms,border-color 320ms,box-shadow 420ms}
+.card footer span:last-child,.card>span:last-child{transition:translate var(--motion-medium) var(--ease-soft),color var(--motion-medium)}
+.swatch{transition:scale 200ms var(--ease-soft),outline-offset 200ms,box-shadow 200ms}.swatch.selected{scale:1.08}
+.drawing-studio{transition:box-shadow 400ms,border-color 400ms}.drawing-studio:focus-within{box-shadow:0 22px 65px #0003,0 0 0 1px #e4c58e44}
+.record-sleeve{transition:transform 650ms var(--ease-soft),box-shadow 650ms}.vinyl{transition:box-shadow 600ms}
+.pixel-cat{transition:transform 650ms var(--ease-soft),translate 350ms var(--ease-soft),filter 350ms}
+.cat-open-eyes,.cat-happy-eyes{display:inline;transition:opacity 160ms ease-out}.cat-open-eyes{opacity:1}.cat-happy-eyes{opacity:0}
+.cuddling .cat-open-eyes{display:inline;opacity:0}.cuddling .cat-happy-eyes{display:inline;opacity:1}
+.memory-card{perspective:500px;transition:background 280ms,box-shadow 450ms,scale 180ms}
+.memory-back,.memory-front{backface-visibility:hidden;transition:opacity 220ms ease-out,transform 350ms var(--ease-soft)}
+.memory-front{transform:rotateY(-80deg) scale(.9)}.memory-back{transform:rotateY(0)}
+.flipped .memory-front,.matched .memory-front{transform:rotateY(0) scale(1)}.flipped .memory-back,.matched .memory-back{transform:rotateY(80deg)}
+#constellation-line{transition:filter 650ms ease-out}.constellation{transition:box-shadow 700ms}
+.sound-panel{animation:panel-entry 240ms var(--ease-soft) both}
+@keyframes panel-entry{from{opacity:0;translate:0 -5px}to{opacity:1;translate:0 0}}
+.reveal{animation:quiet-entry 450ms var(--ease-soft) both}
+.canvas-hint{transition:opacity 280ms ease-out}
+dialog{opacity:0;transform:translateY(12px) scale(.985);transition:opacity 220ms var(--ease-soft),transform 280ms var(--ease-soft),display 280ms allow-discrete,overlay 280ms allow-discrete}
+dialog[open]{opacity:1;transform:translateY(0) scale(1);animation:none}
+dialog::backdrop{opacity:0;transition:opacity 240ms ease,display 280ms allow-discrete,overlay 280ms allow-discrete}
+dialog[open]::backdrop{opacity:1}
+@starting-style{dialog[open]{opacity:0;transform:translateY(12px) scale(.985)}dialog[open]::backdrop{opacity:0}}
+.motion-offscreen,.motion-offscreen *,.motion-paused *{animation-play-state:paused!important}
+@media(hover:hover) and (pointer:fine){
+ .card:hover,.card:focus-visible{transform:translateY(-4px);border-color:#dec28e77;box-shadow:0 14px 28px #0002}
+ .card:hover footer span:last-child{translate:2px -2px}.card:hover>span:last-child{color:#e8d1a7}
+ .record-sleeve:hover{transform:rotate(-2deg) translateY(-3px);box-shadow:8px 18px 35px #0003}
+ .subtle:hover{color:#c5a774}.drawing-studio .subtle:hover{color:#344f3d}
+}
+@media(max-width:600px){.motion-ready .appear{transform:translateY(10px);transition-duration:500ms}.motion-ready .appear.visible{transform:none}.hero-copy>.eyebrow,.hero-copy h1,.hero-copy>p,.hero-copy>.primary,.hero-note{animation-duration:650ms}.scene-wrap{animation-duration:850ms}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .motion-ready .appear{opacity:1;transform:none}.hero-copy>*,header,.scene-wrap{opacity:1;translate:0 0}
+ dialog[open]{opacity:1;transform:none}dialog[open]::backdrop{opacity:1}
+}

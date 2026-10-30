@@ -7,13 +7,36 @@ const persister = {
   write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } }
 };
 const fa = new Intl.NumberFormat('en');
+// Reveal each existing scene once, with a small stagger between paired panels.
+const revealTargets = $$('.appear, .pixel-section, .music-gift, .memory-section, .bottom');
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
   document.body.classList.add('motion-ready');
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-  }), { threshold: .08 });
-  $$('.appear').forEach(el => observer.observe(el));
+  }), { threshold: .06, rootMargin: '0px 0px 25px 0px' });
+  revealTargets.forEach(el => {
+    el.classList.add('appear');
+    el.style.setProperty('--scene-delay', el.matches('.mini-world:nth-child(2)') ? '80ms' : '0ms');
+    observer.observe(el);
+  });
+  // Keyboard and pointer interactions should never wait for a reveal animation.
+  ['focusin', 'pointerdown'].forEach(type => document.addEventListener(type, event => {
+    const scene = event.target.closest?.('.appear');
+    if (scene) { scene.classList.add('visible'); observer.unobserve(scene); }
+  }, { capture: true }));
 }
+if ('IntersectionObserver' in window) {
+  const ambientObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    entry.target.classList.toggle('motion-offscreen', !entry.isIntersecting);
+  }), { rootMargin: '150px' });
+  $$('.scene-wrap, .garden, .constellation, .pixel-room, .music-gift').forEach(el => ambientObserver.observe(el));
+}
+document.body.classList.toggle('motion-paused', document.hidden);
+document.addEventListener('visibilitychange', () => document.body.classList.toggle('motion-paused', document.hidden));
+reducedMotion.addEventListener('change', () => {
+  revealTargets.forEach(el => el.classList.add('visible'));
+  if (reducedMotion.matches) document.getAnimations?.().forEach(animation => animation.cancel());
+});
 function hearts() {
   if (reducedMotion.matches) return;
   for (let i = 0; i < 16; i++) {
@@ -309,11 +332,22 @@ starPoints.forEach(([x, y], i) => {
   button.onclick = () => { if (i === visitedStars) { visitedStars++; updateStars(); if (visitedStars === starPoints.length) hearts(); } };
   $('#star-buttons').append(button);
 });
+let previousStarPathLength = 0;
 function updateStars() {
   const done = visitedStars === starPoints.length;
   $$('.star-button').forEach((button, i) => { button.classList.toggle('next', i === visitedStars); button.classList.toggle('visited', i < visitedStars); button.disabled = i !== visitedStars; });
   const points = starPoints.slice(0, visitedStars);
   $('#constellation-line').setAttribute('d', points.length ? points.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ') + (done ? ' Z' : '') : '');
+  const line = $('#constellation-line');
+  const length = points.length > 1 ? line.getTotalLength() : 0;
+  line.getAnimations?.().forEach(animation => animation.cancel());
+  if (!reducedMotion.matches && length > previousStarPathLength && line.animate) {
+    line.animate([
+      { strokeDasharray: `${length}px`, strokeDashoffset: `${length - previousStarPathLength}px` },
+      { strokeDasharray: `${length}px`, strokeDashoffset: '0px' }
+    ], { duration: 300, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  }
+  previousStarPathLength = length;
   $('#constellation').classList.toggle('complete', done);
   $('#sky-hint').textContent = done ? 'Look! Even distance can turn into a heart.' : 'Tap the glowing star';
   $('#star-count').textContent = `${fa.format(visitedStars)} of 8 stars`;
@@ -324,7 +358,15 @@ $('#reset-stars').onclick = () => { visitedStars = 0; updateStars(); $$('.star-b
 updateStars();
 
 const modal = $('#modal'), content = $('#content');
-function showModal(html) { content.innerHTML = html; if (!modal.open) modal.showModal(); }
+function showModal(html) {
+  const alreadyOpen = modal.open;
+  content.getAnimations?.().forEach(animation => animation.cancel());
+  content.innerHTML = html;
+  if (!alreadyOpen) modal.showModal();
+  else if (!reducedMotion.matches && content.animate) {
+    content.animate([{ opacity: .4, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 220, easing: 'ease-out' });
+  }
+}
 const dates = [
   ['☕', 'kheli khari osgol', 'I loaf my gav'],
   ['☾', 'hihihih', 'I really wanna be in our home together'],
