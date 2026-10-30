@@ -32,7 +32,7 @@ function cuddleCats() {
   clearTimeout(catTimer); petCount++;
   const couple = document.querySelector('#pixel-couple');
   couple.classList.remove('cuddling'); void couple.offsetWidth; couple.classList.add('cuddling');
-  document.querySelector('#cat-message').textContent = ['میو… یکی برای من، یکی برای تو ♡','پیشی‌ها می‌گویند: کنار تو گرم‌تر است.','این همه قلب از یک نوازش کوچولو!'][petCount % 3];
+  document.querySelector('#cat-message').textContent = ['meow meow','meow meow meow','i miss kissing you :('][petCount % 3];
   const love = document.querySelector('#pixel-love'); love.replaceChildren();
   for (let i=0;i<7;i++) { const heart=document.createElement('span');heart.textContent='♥';heart.style.setProperty('--drift',`${(i-3)*20}px`);heart.style.setProperty('--delay',`${i*.08}s`);love.append(heart); }
   catTimer=setTimeout(()=>couple.classList.remove('cuddling'),2400);
@@ -45,7 +45,7 @@ const formatSongTime=seconds=>Number.isFinite(seconds)?`${Math.floor(seconds/60)
 function syncSong(){
  const playing=!songAudio.paused&&!songAudio.ended;
  document.querySelector('.music-gift').classList.toggle('song-playing',playing);
- songToggle.setAttribute('aria-pressed',playing);songToggle.setAttribute('aria-label',playing?'توقف آهنگ':'پخش آهنگ');
+ songToggle.setAttribute('aria-pressed',playing);songToggle.setAttribute('aria-label',playing?'Pause song':'Play song');
  document.querySelector('#song-toggle-icon').textContent=playing?'Ⅱ':'▶';
 }
 function syncSongTime(){
@@ -53,7 +53,7 @@ function syncSongTime(){
  songSeek.disabled=!ready;
  const progress=ready?Math.min(1000,Math.round(songAudio.currentTime/duration*1000)):0;
  songSeek.value=progress;songSeek.style.setProperty('--progress',`${progress/10}%`);
- songSeek.setAttribute('aria-valuetext',`${formatSongTime(songAudio.currentTime)} از ${formatSongTime(duration)}`);
+ songSeek.setAttribute('aria-valuetext',`${formatSongTime(songAudio.currentTime)} of ${formatSongTime(duration)}`);
  document.querySelector('#song-elapsed').textContent=formatSongTime(songAudio.currentTime);
  document.querySelector('#song-duration').textContent=formatSongTime(duration);
 }
@@ -61,12 +61,12 @@ function syncSongTime(){
 ['loadedmetadata','durationchange','timeupdate','seeked','emptied'].forEach(type=>songAudio.addEventListener(type,syncSongTime));
 songToggle.onclick=async()=>{
  if(!songAudio.paused){songAudio.pause();return;}
- songToggle.disabled=true;songStatus.textContent='آهنگ در حال آماده‌شدن است…';
+ songToggle.disabled=true;songStatus.textContent='Getting your song ready…';
  let timeout;
  try{
   await Promise.race([songAudio.play(),new Promise((_,reject)=>{timeout=setTimeout(()=>{songAudio.pause();reject(new Error('timeout'));},12000);})]);
-  songStatus.textContent='این چند دقیقه، فقط برای ما ♡';
- }catch{songStatus.textContent='پخش شروع نشد؛ دوباره دکمه‌ی پخش را بزن.';}
+  songStatus.textContent='These few minutes are just for us ♡';
+ }catch{songStatus.textContent='Could not start playback. Press play to try again.';}
  finally{clearTimeout(timeout);songToggle.disabled=false;syncSong();}
 };
 songSeek.addEventListener('input',()=>{if(Number.isFinite(songAudio.duration))songAudio.currentTime=Number(songSeek.value)/1000*songAudio.duration;syncSongTime();});
@@ -76,19 +76,19 @@ document.querySelector('#song-forward').onclick=()=>skipSong(10);
 document.querySelector('#song-repeat').onclick=event=>{songAudio.loop=!songAudio.loop;event.currentTarget.setAttribute('aria-pressed',songAudio.loop);};
 songAudio.volume=.8;
 document.querySelector('#song-volume').addEventListener('input',event=>{songAudio.volume=Number(event.target.value);});
-songAudio.addEventListener('error',()=>{songStatus.textContent='آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.';syncSong();});
+songAudio.addEventListener('error',()=>{songStatus.textContent='Could not load the song. Please reload the page.';syncSong();});
 document.querySelector('#song-console').hidden=false;songAudio.controls=false;songAudio.hidden=true;
 syncSong();syncSongTime();
 
-const symbols=[{icon:'♥',name:'قلب'},{icon:'☾',name:'ماه'},{icon:'✿',name:'گل'},{icon:'=^.^=',name:'پیشی'}];
+const symbols=[{icon:'♥',name:'Heart'},{icon:'☾',name:'Moon'},{icon:'✿',name:'Flower'},{icon:'=^.^=',name:'Cat'}];
 let memoryDeck=[],openCards=[],matchedPairs=0,moves=0,lockBoard=false,memoryTimer=null;
 function startMemory(){
   clearTimeout(memoryTimer);openCards=[];matchedPairs=0;moves=0;lockBoard=false;
   memoryDeck=[0,1,2,3,0,1,2,3];
   for(let i=memoryDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[memoryDeck[i],memoryDeck[j]]=[memoryDeck[j],memoryDeck[i]];}
   const board=document.querySelector('#memory-board');board.replaceChildren();
-  memoryDeck.forEach((symbol,index)=>{const button=document.createElement('button');button.className='memory-card';button.innerHTML='<span class="memory-back" aria-hidden="true">✧</span><span class="memory-front" aria-hidden="true">'+symbols[symbol].icon+'</span>';button.setAttribute('aria-label',`کارت ${index+1}، بسته`);button.onclick=()=>flipMemory(index);board.append(button);});
-  document.querySelector('#memory-score').textContent='۰ جفت از ۴';document.querySelector('#memory-message').textContent='بدون عجله؛ این بازی زمان‌سنج ندارد.';
+  memoryDeck.forEach((symbol,index)=>{const button=document.createElement('button');button.className='memory-card';button.innerHTML='<span class="memory-back" aria-hidden="true">✧</span><span class="memory-front" aria-hidden="true">'+symbols[symbol].icon+'</span>';button.setAttribute('aria-label',`Card ${index+1}, face down`);button.onclick=()=>flipMemory(index);board.append(button);});
+  document.querySelector('#memory-score').textContent='0 of 4 pairs';document.querySelector('#memory-message').textContent='Take your time. There is no timer.';
 }
 function flipMemory(index){
   const cards=[...document.querySelectorAll('.memory-card')],button=cards[index];
@@ -98,10 +98,10 @@ function flipMemory(index){
   moves++;const [a,b]=openCards;
   if(memoryDeck[a]===memoryDeck[b]){
     matchedPairs++;[cards[a],cards[b]].forEach(el=>{el.classList.add('matched');el.disabled=true;});openCards=[];
-    document.querySelector('#memory-score').textContent=`${new Intl.NumberFormat('fa').format(matchedPairs)} جفت از ۴`;
-    if(matchedPairs===4){document.querySelector('#memory-message').textContent=`همه به هم رسیدند! با ${new Intl.NumberFormat('fa').format(moves)} حرکت ♡`;cuddleCats();document.querySelector('#memory-restart').focus({preventScroll:true});}
+    document.querySelector('#memory-score').textContent=`${new Intl.NumberFormat('en').format(matchedPairs)} of 4 pairs`;
+    if(matchedPairs===4){document.querySelector('#memory-message').textContent=`All together again! ${new Intl.NumberFormat('en').format(moves)} moves ♡`;cuddleCats();document.querySelector('#memory-restart').focus({preventScroll:true});}
   }else{
-    lockBoard=true;memoryTimer=setTimeout(()=>{[a,b].forEach(i=>{cards[i].classList.remove('flipped');cards[i].setAttribute('aria-label',`کارت ${i+1}، بسته`);});openCards=[];lockBoard=false;},900);
+    lockBoard=true;memoryTimer=setTimeout(()=>{[a,b].forEach(i=>{cards[i].classList.remove('flipped');cards[i].setAttribute('aria-label',`Card ${i+1}, face down`);});openCards=[];lockBoard=false;},900);
   }
 }
 document.querySelector('#memory-restart').onclick=startMemory;

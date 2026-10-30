@@ -36,4 +36,4 @@ No API keys, external fonts or audio downloads are required. To publish, serve t
 
 `extras.js` adds original pixel cats that cuddle when petted, a shuffled four-pair memory game, and a native audio player for the user-provided recording of Lover Is a Day, stored under `media/`.
 
-`site-texts.txt` contains categorized editable copy, source locations, and dynamic placeholders. Edit the entries and use them to update the referenced source strings; the inventory is not a runtime translation file. Regenerate it with `python3 scripts/export-texts.py` after source changes.
+`copy-catalog.json` records all 204 stable text IDs, including the 37 personal edits. `site-texts.txt` is the easy-to-edit export. Keep IDs and dynamic ${...} placeholders intact when sending changes back. The catalog is a reference, not a runtime translation file; update source strings alongside catalog entries. Regenerate the text export with `python3 scripts/export-texts.py`.

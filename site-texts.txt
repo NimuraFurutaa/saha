@@ -1,682 +1,614 @@
-متن‌های جهان کوچک ما — نسخه قابل ویرایش
+Site text — personal edits preserved
+Edit text below an ID and send the file back. Keep IDs and ${...} placeholders unchanged.
 
-راهنما: متن هر شناسه را جایگزین کن و این فایل را برگردان تا تغییرها را روی سایت اعمال کنم.
-این فایل فهرست متن‌هاست؛ ویرایش آن به‌تنهایی متن داخل سایت را تغییر نمی‌دهد.
-بخش‌های ${...} جای عدد، نام یا نتیجه‌ی بازی هستند؛ آن‌ها را دست‌نخورده بگذار.
-متن‌های دسترس‌پذیری (توضیح دکمه برای صفحه‌خوان) هم در این فهرست آمده‌اند.
+[T001]
+our little world
 
-=======================================================
-سربرگ و معرفی
-=======================================================
+[T002]
+our little galaxy
 
-[T001] | index.html:5
-جهانِ کوچکِ ما
+[T003]
+for pishi saha
 
-[T002] | index.html:10
-✧ جهانِ کوچکِ ما
+[T004]
+Rainy mood
 
-[T003] | index.html:10
-ساخته شده برای دو نفر
+[T005]
+Rain settings
 
-[T004] | index.html:10
-حال‌وهوای بارانی
+[T006]
+Rain at the window
 
-[T005] | index.html:11
-تنظیم صدای باران
+[T007]
+Close sound settings
 
-[T006] | index.html:12
-پشت پنجره، باران است
+[T008]
+Rain scene
 
-[T007] | index.html:12
-بستن تنظیمات صدا
+[T009]
+Drizzle
 
-[T008] | index.html:13
-فضای بارانی
+[T010]
+By the window
 
-[T009] | index.html:13
-نم‌نم
+[T011]
+Rainy garden
 
-[T010] | index.html:13
-پشت شیشه
+[T012]
+Rain
 
-[T011] | index.html:13
-باغ بارانی
+[T013]
+Nearby droplets
 
-[T012] | index.html:14
-صدای باران
+[T014]
+A breeze in the leaves
 
-[T013] | index.html:15
-قطره‌های نزدیک
+[T015]
+▶ Play rain
 
-[T014] | index.html:16
-نسیم میان برگ‌ها
+[T016]
+A soft start, just for you.
 
-[T015] | index.html:17
-▶ پخش باران
+[T017]
+my lil wife
 
-[T016] | index.html:17
-آرام شروع می‌شود؛ به اندازه‌ی حالِ تو.
+[T018]
+lets
 
-[T017] | index.html:21
-یک هدیه، هزار راه برای کشف کردن
+[T019]
+dr
 
-[T018] | index.html:21
-با هم،
+[T020]
+we.
 
-[T019] | index.html:21
-یک جهان
+[T021]
+all for saha
 
-[T020] | index.html:21
-بکشیم.
+[T022]
+i loaf you ma baby
 
-[T021] | index.html:21
-اینجا با لمس تو گل می‌روید،
+[T023]
+hehe
 
-[T022] | index.html:21
-ستاره‌ها به هم می‌رسند و رنگ‌ها قصه می‌شوند.
+[T024]
+touch the moon
 
-[T023] | index.html:21
-بریم یک چیزی بسازیم
+[T025]
+Two cats beside a window on a rainy night
 
-[T024] | index.html:21
-ماه را لمس کن؛ یک رازی دارد.
+[T026]
+Discover the secret of the moon
 
-[T025] | index.html:23
-نقاشی دو گربه کنار پنجره در یک شب بارانی
+[T027]
+2 little pishi
 
-[T026] | index.html:40
-راز ماه را کشف کن
+[T028]
+01 / A little trace of you
 
-[T027] | index.html:40
-یک پنجره. دو تا گربه. تمامِ دنیا.
+[T029]
+A drawing of our own
 
-=======================================================
-نقاشی: ابزارها و بوم
-=======================================================
+[T030]
+Draw with your finger or mouse
 
-[T028] | index.html:43
-۰۱ / ردِ انگشت‌های تو
+[T031]
+Brush color
 
-[T029] | index.html:43
-یک نقاشی که فقط مالِ ماست
+[T032]
+Rose
 
-[T030] | index.html:43
-با انگشت یا موس بکش
+[T033]
+Green
 
-[T031] | index.html:44
-رنگ قلم
+[T034]
+Gold
 
-[T032] | index.html:44
-رنگ گلی
+[T035]
+Lavender
 
-[T033] | index.html:44
-رنگ سبز
+[T036]
+Blue
 
-[T034] | index.html:44
-رنگ طلایی
+[T037]
+Custom color
 
-[T035] | index.html:44
-رنگ یاسی
+[T038]
+Choose a custom color
 
-[T036] | index.html:44
-رنگ آبی
+[T039]
+Brush type
 
-[T037] | index.html:44
-رنگ دلخواه
+[T040]
+✎ Pen
 
-[T038] | index.html:44
-انتخاب رنگ دلخواه
+[T041]
+♡ Heart
 
-[T039] | index.html:44
-نوع قلم
+[T042]
+✿ Flower
 
-[T040] | index.html:44
-✎ قلم
+[T043]
+⌘ Mirror
 
-[T041] | index.html:44
-♡ قلب
+[T044]
+◌ Watercolor
 
-[T042] | index.html:44
-✿ گل
+[T045]
+◠ Rainbow
 
-[T043] | index.html:44
-⌘ آینه
+[T046]
+✦ Star
 
-[T044] | index.html:44
-◌ آبرنگ
+[T047]
+☾ Moon
 
-[T045] | index.html:44
-◠ رنگین‌کمان
+[T048]
+=^.^= Cat
 
-[T046] | index.html:44
-✦ ستاره
+[T049]
+▱ Eraser
 
-[T047] | index.html:44
-☾ ماه
+[T050]
+Size
 
-[T048] | index.html:44
-=^.^= گربه
+[T051]
+Opacity
 
-[T049] | index.html:44
-▱ پاک‌کن
+[T052]
+Add a stencil
 
-[T050] | index.html:44
-اندازه
+[T053]
+A little starting point:
 
-[T051] | index.html:44
-شفافیت
+[T054]
+❀ Flower wreath
 
-[T052] | index.html:44
-افزودن شابلون
+[T055]
+✧ Sky
 
-[T053] | index.html:44
-یک شروع کوچک:
+[T056]
+✧ Give me an idea
 
-[T054] | index.html:44
-❀ حلقه‌ی گل
+[T057]
+Paper
 
-[T055] | index.html:44
-✧ آسمان
+[T058]
+Cream
 
-[T056] | index.html:44
-✧ ایده بده
+[T059]
+Mint
 
-[T057] | index.html:44
-کاغذ
+[T060]
+Rose
 
-[T058] | index.html:44
-کرم
+[T061]
+Night
 
-[T059] | index.html:44
-نعنایی
+[T062]
+Drawing canvas; draw with a mouse or touch
 
-[T060] | index.html:44
-گلی
+[T063]
+Your browser needs Canvas support to draw here.
 
-[T061] | index.html:44
-شب
+[T064]
+Start with a little line…
 
-[T062] | index.html:45
-بوم نقاشی؛ برای کشیدن از موس یا لمس استفاده کنید
-
-[T063] | index.html:45
-برای نقاشی به مرورگری با پشتیبانی از Canvas نیاز است.
-
-[T064] | index.html:45
-از یک خطِ کوچک شروع کن…
-
-[T065] | index.html:45
+[T065]
 MADE BY US ♡
 
-[T066] | index.html:46
-رنگِ امروزمان چیست؟
+[T066]
+What color is today?
 
-[T067] | index.html:46
-↶ برگشت
+[T067]
+↶ Undo
 
-[T068] | index.html:46
-↷ جلو
+[T068]
+↷ Redo
 
-[T069] | index.html:46
-▷ بازپخش
+[T069]
+▷ Replay
 
-[T070] | index.html:46
-▣ کارت‌پستال
+[T070]
+▣ Postcard
 
-[T071] | index.html:46
-از نو
+[T071]
+Start over
 
-[T072] | index.html:46
-↓ یادگاری بگیر
+[T072]
+↓ Keep a little memory
 
-=======================================================
-باغ و ستاره‌ها
-=======================================================
+[T073]
+02 / A little patience, a little magic
 
-[T073] | index.html:50
-۰۲ / کمی صبر، کمی جادو
+[T074]
+A garden you grow
 
-[T074] | index.html:50
-باغی که تو می‌کاری
+[T075]
+Interactive garden; tap to plant a flower
 
-[T075] | index.html:50
-باغ تعاملی؛ برای کاشتن گل کلیک کنید
+[T076]
+A new flower with every touch
 
-[T076] | index.html:50
-هر لمس، یک گلِ تازه
+[T077]
++ Plant a flower
 
-[T077] | index.html:50
-+ یک گل بکار
+[T078]
+Our little garden
 
-[T078] | index.html:50
-باغ کوچک ما
+[T079]
+Start the garden over
 
-[T079] | index.html:50
-شروع باغ از نو
+[T080]
+03 / Connect the distance
 
-[T080] | index.html:51
-۰۳ / فاصله‌ها را خط بزن
+[T081]
+Our constellation
 
-[T081] | index.html:51
-صورتِ فلکیِ ما
+[T082]
+Tap the glowing star
 
-[T082] | index.html:51
-ستاره‌ی روشن را لمس کن
+[T083]
+0 of 8 stars
 
-[T083] | index.html:51
-۰ از ۸ ستاره
+[T084]
+Connect them again ↶
 
-[T084] | index.html:51
-دوباره وصل کنیم ↶
+[T085]
+04 / One more little corner
 
-=======================================================
-پاکت‌ها و نامه
-=======================================================
+[T086]
+Little envelopes, little surprises
 
-[T085] | index.html:53
-۰۴ / هنوز یک گوشه‌ی دیگر مانده
+[T087]
+A folded letter
 
-[T086] | index.html:53
-پاکت‌های کوچک، کشف‌های تازه
+[T088]
+Open it ↗
 
-[T087] | index.html:53
-یک نامه‌ی تاخورده
+[T089]
+Our next date
 
-[T088] | index.html:53
-بازش کن ↗
+[T090]
+Let us try our luck ↗
 
-[T089] | index.html:53
-قرارِ بعدی‌مان
+[T091]
+A wish in a bottle
 
-[T090] | index.html:53
-شانسمان را امتحان کنیم ↗
+[T092]
+Send it to the sky ↗
 
-[T091] | index.html:53
-یک آرزو در شیشه
+[T093]
+05 / Two cats, one heart
 
-[T092] | index.html:53
-بسپرش به آسمان ↗
+[T094]
+lovers pishi
 
-=======================================================
-پیشی‌های پیکسلی
-=======================================================
+[T095]
+Tap either little cat
 
-[T093] | index.html:54
-۰۵ / دو تا پیشی، یک دل
+[T096]
+Pet the purple cat
 
-[T094] | index.html:54
-پیشی‌های عاشقِ این جهان
+[T097]
+Pet the silver cat
 
-[T095] | index.html:54
-روی هر کدوم بزن
+[T098]
+i want to hug you again
 
-[T096] | index.html:54
-نوازش پیشی بنفش
+[T099]
+you know why i choos this soung
 
-[T097] | index.html:54
-نوازش پیشی نقره‌ای
-
-[T098] | index.html:54
-یک نوازش کوچک، یک عالمه دل‌دادگی.
-
-=======================================================
-آهنگ
-=======================================================
-
-[T099] | index.html:55
-یک آهنگ برای کنار هم بودن
-
-[T100] | index.html:55
+[T100]
 Lover Is a Day
 
-[T101] | index.html:55
-یک آهنگ برای ما
+[T101]
+our song
 
-[T102] | index.html:55
-پخش آهنگ Lover Is a Day
+[T102]
+Play Lover Is a Day
 
-[T103] | index.html:55
-مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
+[T103]
+Your browser does not support audio playback.
 
-[T104] | index.html:55
-جابه‌جایی در آهنگ
+[T104]
+Seek through the song
 
-[T105] | index.html:55
-ده ثانیه عقب
+[T105]
+Back ten seconds
 
-[T106] | index.html:55
-پخش آهنگ
+[T106]
+Play song
 
-[T107] | index.html:55
-ده ثانیه جلو
+[T107]
+Forward ten seconds
 
-[T108] | index.html:55
-تکرار آهنگ
+[T108]
+Repeat song
 
-[T109] | index.html:55
-بلندی صدا
+[T109]
+Volume
 
-[T110] | index.html:55
-برای شروع، دکمه‌ی پخش را بزن ♡
+[T110]
+Press play when you are ready ♡
 
-=======================================================
-مینی‌گیم
-=======================================================
+[T111]
+06 / A little game before you go
 
-[T111] | index.html:56
-۰۶ / آخرِ قصه، یک بازی کوچک
+[T112]
+Find the little pairs
 
-[T112] | index.html:56
-جفت‌های دل‌داده را پیدا کن
+[T113]
+0 of 4 pairs
 
-[T113] | index.html:56
-۰ جفت از ۴
+[T114]
+Turn over two cards. Every cat and heart has a match.
 
-[T114] | index.html:56
-کارت‌ها را دوتادوتا برگردان؛ هر پیشی و هر قلب، یک جفت دارد.
+[T115]
+Find four matching pairs
 
-[T115] | index.html:56
-بازی پیدا کردن چهار جفت
+[T116]
+Take your time. There is no timer.
 
-[T116] | index.html:56
-بدون عجله؛ این بازی زمان‌سنج ندارد.
+[T117]
+Play again ↶
 
-[T117] | index.html:56
-از نو بازی کنیم ↶
+[T118]
+This world is sweeter with you in it.
 
-=======================================================
-پایان صفحه
-=======================================================
+[T119]
+There is always a little place for you here.
 
-[T118] | index.html:57
-این جهان با تو قشنگ‌تر می‌شود.
+[T120]
+Close
 
-[T119] | index.html:57
-هر بار که برگردی، یک جای خالی برای تو هست.
+[T121]
+Your drawing stays in this browser ♡
 
-[T120] | index.html:59
-بستن
+[T122]
+Use the download button to keep your drawing.
 
-=======================================================
-نقاشی: پیام‌ها، ایده‌ها و کارت‌پستال
-=======================================================
+[T123]
+▷ Replay
 
-[T121] | app.js:127
-نقاشی‌ات در همین مرورگر می‌ماند ♡
+[T124]
+Ⅱ Stop replay
 
-[T122] | app.js:127
-برای نگه‌داشتنش، «یادگاری بگیر» را بزن.
+[T125]
+Draw a butterfly with the mirror brush. Two wings, one movement.
 
-[T123] | app.js:166
-▷ بازپخش
+[T126]
+Two cats under the moon. One for you, one for me.
 
-[T124] | app.js:187
-Ⅱ پایان بازپخش
+[T127]
+Paint a watercolor sunset, then add a few stars.
 
-[T125] | app.js:216
-با قلم آینه یک پروانه بساز؛ دو بال، یک حرکت.
+[T128]
+Add a heart stencil and draw flowers around it.
 
-[T126] | app.js:216
-دو گربه زیر ماه؛ یکی تو، یکی من.
+[T129]
+Invent a little planet. You choose its colors.
 
-[T127] | app.js:216
-با آبرنگ یک غروب بکش، بعد چند ستاره روی آن بکار.
+[T130]
+A bouquet of flowers that only exists in our world!
 
-[T128] | app.js:216
-شابلون قلب را بزن و دورش گل بکش.
+[T131]
+A fresh canvas?
 
-[T129] | app.js:216
-یک سیاره‌ی تازه اختراع کن؛ رنگ‌هایش با تو.
+[T132]
+This will clear your drawing. Download a keepsake first if you love it.
 
-[T130] | app.js:216
-یک دسته‌گل که در دنیای واقعی وجود ندارد!
+[T133]
+Clear and start again
 
-[T131] | app.js:222
-یک بوم تازه؟
+[T134]
+Could not save. Please try again.
 
-[T132] | app.js:222
-نقاشی فعلی پاک می‌شود. اگر دوستش داری، اول از آن یادگاری بگیر.
+[T135]
+A little piece of our world to keep ♡
 
-[T133] | app.js:222
-پاک کن و از نو شروع کنیم
-
-[T134] | app.js:235
-ذخیره نشد؛ دوباره امتحان کن.
-
-[T135] | app.js:237
-یک تکه از جهانمان، برای نگه داشتن ♡
-
-[T136] | app.js:242
+[T136]
 MADE BY US ♡
 
-[T137] | app.js:247
-از دست‌های تو، برای او
+[T137]
+Made by you, for your person
 
-[T138] | app.js:247
-پیش‌نمایش کارت‌پستال نقاشی
+[T138]
+Drawing postcard preview
 
-[T139] | app.js:247
-قاب
+[T139]
+Frame
 
-[T140] | app.js:247
-کاغذ قدیمی
+[T140]
+Vintage paper
 
-[T141] | app.js:247
-گل‌بهی
+[T141]
+Peach
 
-[T142] | app.js:247
-شبِ پرستاره
+[T142]
+Starry night
 
-[T143] | app.js:247
-یک امضای کوتاه
+[T143]
+A little signature
 
-[T144] | app.js:247
-یک تکه از جهانِ ما ♡
+[T144]
+A little piece of our world ♡
 
-[T145] | app.js:247
-↓ ذخیره‌ی کارت‌پستال
+[T145]
+↓ Save postcard
 
-[T146] | app.js:256
+[T146]
 MADE BY US • WITH LOVE
 
-=======================================================
-باغ: پیام‌ها
-=======================================================
+[T147]
+${fa.format(flowers.length)} flowers, planted by you
 
-[T147] | app.js:276
-${fa.format(flowers.length)} گل، از دست‌های تو
+[T148]
+Our little garden
 
-[T148] | app.js:276
-باغ کوچک ما
+[T149]
+Plant a new garden?
 
-[T149] | app.js:289
-باغ را دوباره بکاریم؟
+[T150]
+This will clear the flowers so you can plant a fresh garden.
 
-[T150] | app.js:289
-گل‌های فعلی پاک می‌شوند تا یک باغ تازه بسازی.
+[T151]
+A fresh garden
 
-[T151] | app.js:289
-یک باغ تازه
+[T152]
+Connect star ${fa.format(i + 1)}
 
-=======================================================
-آسمان: پیام‌ها
-=======================================================
+[T153]
+Look! Even distance can turn into a heart.
 
-[T152] | app.js:299
-وصل کردن ستاره ${fa.format(i + 1)}
+[T154]
+Tap the glowing star
 
-[T153] | app.js:309
-دیدی؟ فاصله‌ها هم می‌توانند یک قلب شوند.
+[T155]
+${fa.format(visitedStars)} of 8 stars
 
-[T154] | app.js:309
-ستاره‌ی روشن را لمس کن
+[T156]
+kheli khari osgol
 
-[T155] | app.js:310
-${fa.format(visitedStars)} از ۸ ستاره
+[T157]
+i loaf my gav
 
-=======================================================
-نامه، قرارها، آرزو و راز ماه
-=======================================================
+[T158]
+hihihih
 
-[T156] | app.js:320
-دو فنجان و یک غروب
+[T159]
+i really wanna be in our home together
 
-[T157] | app.js:320
-یک کافه‌ی کوچک، کنار پنجره. گوشی‌ها در جیب، دست‌ها روی میز.
+[T160]
+rangarangi
 
-[T158] | app.js:321
-یک شب زیر ستاره‌ها
+[T161]
+pishi bazi
 
-[T159] | app.js:321
-یک پتو، یک نوشیدنی گرم و پیدا کردن صورت فلکیِ خودمان.
+[T162]
+osgol bazi donafare
 
-[T160] | app.js:322
-یک قرار پر از رنگ
+[T163]
+ahmagho
 
-[T161] | app.js:322
-دو کاغذ، چند رنگ؛ پرتره‌ی هم را بکشیم، حتی اگر شبیه سیب‌زمینی شد!
+[T164]
+Dates still to come
 
-[T162] | app.js:323
-آشپزخانه‌ی دونفره
+[T165]
+Another little date ↶
 
-[T163] | app.js:323
-یک غذای تازه با سلیقه‌ی هردومان؛ موسیقی و کمی هم آرد روی لباس‌ها.
+[T166]
+helloooo saha
 
-[T164] | app.js:328
-قرارهای نرفته
+[T167]
+you are ma lil pretty mommy
 
-[T165] | app.js:328
-یک قرار دیگر ↶
+[T168]
+open it
 
-[T166] | app.js:333
-سلام، آدمِ عزیزِ من.
+[T169]
+im so glad for having you
 
-[T167] | app.js:333
-این جهان کوچک را ساختم تا یک گوشه از روزت، رنگی‌تر شود. برای نقاشی‌های کج‌وکوله، قرارهای بی‌هوا و همین کنار هم بودن.
+[T170]
+you wish
 
-[T168] | app.js:333
-تای آخرِ نامه را باز کن ♡
+[T171]
+Put your wish in the bottle
 
-[T169] | app.js:334
-از میان تمام اتفاق‌های ممکن، خوشحالم که به تو رسیدم. ♥
+[T172]
+us.one day
 
-[T170] | app.js:337
-یک آرزوی کوچک
+[T173]
+Let it fly ↑
 
-[T171] | app.js:337
-آرزویت را در شیشه بگذار
+[T174]
+Just for this moment. Your wish is not saved or sent anywhere.
 
-[T172] | app.js:337
-یک روز، من و تو…
+[T175]
+Now the sky knows.
 
-[T173] | app.js:337
-رهایش کن در آسمان ↑
+[T176]
+one day we are together
 
-[T174] | app.js:337
-فقط برای همین لحظه؛ جایی فرستاده یا ذخیره نمی‌شود.
+[T177]
+moon
 
-[T175] | app.js:340
-حالا آسمان خبر دارد.
+[T178]
+us?
 
-[T176] | app.js:340
-یک روز، یک جایی، شاید همین آرزو…
+[T179]
+grow a floser for us
 
-[T177] | app.js:344
-ماه هم طرفِ ماست.
+[T180]
+Ⅱ Pause rain
 
-[T178] | app.js:344
-این دو تا گربه، یک جای گرم کنار پنجره پیدا کرده‌اند. یکی برای من، یکی برای تو.
+[T181]
+▶ Play rain
 
-[T179] | app.js:344
-بیا برایشان گل بکاریم ❀
+[T182]
+Rain, droplets and a breeze. Just the way you like it.
 
-=======================================================
-باران: پیام‌ها
-=======================================================
+[T183]
+Whenever you want, the rain is here.
 
-[T180] | app.js:432
-Ⅱ توقف باران
+[T184]
+Audio could not start. Try again or use a newer browser.
 
-[T181] | app.js:432
-▶ پخش باران
+[T185]
+meow meow
 
-[T182] | app.js:433
-باران، قطره و نسیم؛ به سلیقه‌ی تو.
+[T186]
+meow meow meow
 
-[T183] | app.js:433
-هر وقت خواستی، باران همین‌جاست.
+[T187]
+i miss kissing you :(
 
-[T184] | app.js:434
-صدا شروع نشد؛ دوباره بزن یا با مرورگر جدیدتری باز کن.
+[T188]
+Pause song
 
-=======================================================
-پیشی‌ها: پیام‌های نوازش
-=======================================================
+[T189]
+Play song
 
-[T185] | extras.js:35
-میو… یکی برای من، یکی برای تو ♡
+[T190]
+${formatSongTime(songAudio.currentTime)} of ${formatSongTime(duration)}
 
-[T186] | extras.js:35
-پیشی‌ها می‌گویند: کنار تو گرم‌تر است.
+[T191]
+Getting your song ready…
 
-[T187] | extras.js:35
-این همه قلب از یک نوازش کوچولو!
+[T192]
+These few minutes are just for us ♡
 
-=======================================================
-آهنگ: پیام‌های پخش
-=======================================================
+[T193]
+Could not start playback. Press play to try again.
 
-[T188] | extras.js:48
-توقف آهنگ
+[T194]
+Could not load the song. Please reload the page.
 
-[T189] | extras.js:48
-پخش آهنگ
+[T195]
+Heart
 
-[T190] | extras.js:56
-${formatSongTime(songAudio.currentTime)} از ${formatSongTime(duration)}
+[T196]
+Moon
 
-[T191] | extras.js:64
-آهنگ در حال آماده‌شدن است…
+[T197]
+Flower
 
-[T192] | extras.js:68
-این چند دقیقه، فقط برای ما ♡
+[T198]
+Cat
 
-[T193] | extras.js:69
-پخش شروع نشد؛ دوباره دکمه‌ی پخش را بزن.
+[T199]
+Card ${index+1}, face down
 
-[T194] | extras.js:79
-آهنگ بارگذاری نشد؛ صفحه را دوباره باز کن.
+[T200]
+0 of 4 pairs
 
-=======================================================
-مینی‌گیم: کارت‌ها و پیام‌ها
-=======================================================
+[T201]
+Take your time. There is no timer.
 
-[T195] | extras.js:83
-قلب
+[T202]
+${new Intl.NumberFormat('en').format(matchedPairs)} of 4 pairs
 
-[T196] | extras.js:83
-ماه
+[T203]
+All together again! ${new Intl.NumberFormat('en').format(moves)} moves ♡
 
-[T197] | extras.js:83
-گل
-
-[T198] | extras.js:83
-پیشی
-
-[T199] | extras.js:90
-کارت ${index+1}، بسته
-
-[T200] | extras.js:91
-۰ جفت از ۴
-
-[T201] | extras.js:91
-بدون عجله؛ این بازی زمان‌سنج ندارد.
-
-[T202] | extras.js:101
-${new Intl.NumberFormat('fa').format(matchedPairs)} جفت از ۴
-
-[T203] | extras.js:102
-همه به هم رسیدند! با ${new Intl.NumberFormat('fa').format(moves)} حرکت ♡
-
-[T204] | extras.js:104
-کارت ${i+1}، بسته
+[T204]
+Card ${i+1}, face down

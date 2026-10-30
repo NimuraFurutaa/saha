@@ -6,7 +6,7 @@ const persister = {
   read(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } },
   write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } }
 };
-const fa = new Intl.NumberFormat('fa');
+const fa = new Intl.NumberFormat('en');
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
   document.body.classList.add('motion-ready');
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -124,7 +124,7 @@ function resizeCanvas() {
 new ResizeObserver(resizeCanvas).observe(canvas);
 function saveDrawing() {
   const saved = persister.write('our-world-drawing-v1', strokes);
-  $('#save-status').textContent = saved ? 'نقاشی‌ات در همین مرورگر می‌ماند ♡' : 'برای نگه‌داشتنش، «یادگاری بگیر» را بزن.';
+  $('#save-status').textContent = saved ? 'Your drawing stays in this browser ♡' : 'Use the download button to keep your drawing.';
 }
 function point(event) {
   const rect = canvas.getBoundingClientRect();
@@ -163,7 +163,7 @@ $$('[data-brush]').forEach(button => button.addEventListener('click', () => {
 $('#brush-size').addEventListener('input', event => { brushSize = +event.target.value; });
 $('#brush-opacity').addEventListener('input', event => { brushOpacity = +event.target.value / 100; });
 $('#custom-color').addEventListener('input', event => { color = event.target.value; $$('.swatch').forEach(el => { el.classList.remove('selected'); el.setAttribute('aria-pressed', 'false'); }); });
-function stopReplay() { if (replayFrame !== null) { cancelAnimationFrame(replayFrame); replayFrame = null; renderDrawing(); } $('#replay-drawing').textContent = '▷ بازپخش'; }
+function stopReplay() { if (replayFrame !== null) { cancelAnimationFrame(replayFrame); replayFrame = null; renderDrawing(); } $('#replay-drawing').textContent = '▷ Replay'; }
 function commitDrawing(next) {
   stopReplay(); undoHistory.push(strokes); if (undoHistory.length > 40) undoHistory.shift();
   redoHistory = []; strokes = next; renderDrawing(); saveDrawing();
@@ -184,7 +184,7 @@ $('#replay-drawing').onclick = () => {
   if (replayFrame !== null) { stopReplay(); return; }
   if (!strokes.length || reducedMotion.matches) { renderDrawing(); return; }
   const start = performance.now(), count = strokes.reduce((sum, s) => sum + s.points.length, 0);
-  $('#replay-drawing').textContent = 'Ⅱ پایان بازپخش';
+  $('#replay-drawing').textContent = 'Ⅱ Stop replay';
   const frame = time => {
     let left = Math.ceil(Math.min(1, (time - start) / 3500) * count);
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -213,13 +213,13 @@ $$('[data-template]').forEach(button => button.onclick = () => {
   }
   commitDrawing([...strokes, ...additions]);
 });
-const drawingIdeas = ['با قلم آینه یک پروانه بساز؛ دو بال، یک حرکت.', 'دو گربه زیر ماه؛ یکی تو، یکی من.', 'با آبرنگ یک غروب بکش، بعد چند ستاره روی آن بکار.', 'شابلون قلب را بزن و دورش گل بکش.', 'یک سیاره‌ی تازه اختراع کن؛ رنگ‌هایش با تو.', 'یک دسته‌گل که در دنیای واقعی وجود ندارد!'];
+const drawingIdeas = ['Draw a butterfly with the mirror brush. Two wings, one movement.', 'Two cats under the moon. One for you, one for me.', 'Paint a watercolor sunset, then add a few stars.', 'Add a heart stencil and draw flowers around it.', 'Invent a little planet. You choose its colors.', 'A bouquet of flowers that only exists in our world!'];
 let drawingIdeaIndex = 0;
 $('#drawing-idea').onclick = () => { $('#idea-hint').textContent = drawingIdeas[drawingIdeaIndex++ % drawingIdeas.length]; };
 
 $('#clear-drawing').addEventListener('click', () => {
   if (!strokes.length) return;
-  showModal('<h2 id="modal-title">یک بوم تازه؟</h2><p>نقاشی فعلی پاک می‌شود. اگر دوستش داری، اول از آن یادگاری بگیر.</p><button id="confirm-clear" class="primary">پاک کن و از نو شروع کنیم</button>');
+  showModal('<h2 id="modal-title">A fresh canvas?</h2><p>This will clear your drawing. Download a keepsake first if you love it.</p><button id="confirm-clear" class="primary">Clear and start again</button>');
   $('#confirm-clear').onclick = () => { commitDrawing([]); modal.close(); };
 });
 function makeArt(width = 1600) {
@@ -232,9 +232,9 @@ function makeArt(width = 1600) {
 }
 function downloadCanvas(output, filename) {
   output.toBlob(blob => {
-    if (!blob) { $('#save-status').textContent = 'ذخیره نشد؛ دوباره امتحان کن.'; return; }
+    if (!blob) { $('#save-status').textContent = 'Could not save. Please try again.'; return; }
     const url = URL.createObjectURL(blob), link = document.createElement('a'); link.download = filename; link.href = url; link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 10000); $('#save-status').textContent = 'یک تکه از جهانمان، برای نگه داشتن ♡';
+    setTimeout(() => URL.revokeObjectURL(url), 10000); $('#save-status').textContent = 'A little piece of our world to keep ♡';
   }, 'image/png');
 }
 $('#download').addEventListener('click', () => {
@@ -244,7 +244,7 @@ $('#download').addEventListener('click', () => {
 });
 $('#postcard').onclick = () => {
   stopReplay();
-  showModal('<h2 id="modal-title">از دست‌های تو، برای او</h2><canvas id="postcard-preview" width="1000" height="1000" aria-label="پیش‌نمایش کارت‌پستال نقاشی"></canvas><div class="postcard-controls"><label>قاب <select id="postcard-frame"><option value="cream">کاغذ قدیمی</option><option value="rose">گل‌بهی</option><option value="night">شبِ پرستاره</option></select></label><label for="postcard-message">یک امضای کوتاه</label><input id="postcard-message" maxlength="50" value="یک تکه از جهانِ ما ♡"><button id="download-postcard" class="primary">↓ ذخیره‌ی کارت‌پستال</button></div>');
+  showModal('<h2 id="modal-title">Made by you, for your person</h2><canvas id="postcard-preview" width="1000" height="1000" aria-label="Drawing postcard preview"></canvas><div class="postcard-controls"><label>Frame <select id="postcard-frame"><option value="cream">Vintage paper</option><option value="rose">Peach</option><option value="night">Starry night</option></select></label><label for="postcard-message">A little signature</label><input id="postcard-message" maxlength="50" value="A little piece of our world ♡"><button id="download-postcard" class="primary">↓ Save postcard</button></div>');
   const preview = $('#postcard-preview'), c = preview.getContext('2d'), art = makeArt(880);
   function drawPostcard() {
     const theme = $('#postcard-frame').value;
@@ -273,7 +273,7 @@ function updateGarden(animate = false) {
   $('#flowers').innerHTML = flowers.map(flowerMarkup).join('');
   if (!animate) $$('#flowers .flower-grow').forEach(el => { el.style.animation = 'none'; });
   else $$('#flowers .flower-grow').slice(0, -1).forEach(el => { el.style.animation = 'none'; });
-  $('#flower-count').textContent = flowers.length ? `${fa.format(flowers.length)} گل، از دست‌های تو` : 'باغ کوچک ما';
+  $('#flower-count').textContent = flowers.length ? `${fa.format(flowers.length)} flowers, planted by you` : 'Our little garden';
 }
 function plant(x, y) {
   flowers.push({ x: Math.max(20, Math.min(580, x)), y: Math.max(180, Math.min(340, y)), height: 45 + Math.random() * 65, hue: Math.floor(Math.random() * 4), lean: (Math.random() - .5) * 30 });
@@ -286,7 +286,7 @@ $('#garden').addEventListener('click', event => {
 $('#plant-flower').addEventListener('click', () => plant(50 + Math.random() * 500, 210 + Math.random() * 120));
 $('#clear-garden').addEventListener('click', () => {
   if (!flowers.length) return;
-  showModal('<h2 id="modal-title">باغ را دوباره بکاریم؟</h2><p>گل‌های فعلی پاک می‌شوند تا یک باغ تازه بسازی.</p><button class="primary" id="confirm-garden">یک باغ تازه</button>');
+  showModal('<h2 id="modal-title">Plant a new garden?</h2><p>This will clear the flowers so you can plant a fresh garden.</p><button class="primary" id="confirm-garden">A fresh garden</button>');
   $('#confirm-garden').onclick = () => { flowers = []; updateGarden(); persister.write('our-world-garden-v1', flowers); modal.close(); };
 });
 updateGarden();
@@ -296,7 +296,7 @@ let visitedStars = 0;
 $('#sky-dust').innerHTML = Array.from({length: 45}, (_, i) => `<circle cx="${(i * 137 + 27) % 590}" cy="${(i * 73 + 19) % 340}" r="${i % 4 === 0 ? 1.3 : .7}" fill="#d6dcb5" opacity="${.15 + (i % 5) * .1}"/>`).join('');
 starPoints.forEach(([x, y], i) => {
   const button = document.createElement('button'); button.className = 'star-button'; button.textContent = '✦';
-  button.style.left = `${x / 6}%`; button.style.top = `${y / 3.7}%`; button.setAttribute('aria-label', `وصل کردن ستاره ${fa.format(i + 1)}`);
+  button.style.left = `${x / 6}%`; button.style.top = `${y / 3.7}%`; button.setAttribute('aria-label', `Connect star ${fa.format(i + 1)}`);
   button.onclick = () => { if (i === visitedStars) { visitedStars++; updateStars(); if (visitedStars === starPoints.length) hearts(); } };
   $('#star-buttons').append(button);
 });
@@ -306,8 +306,8 @@ function updateStars() {
   const points = starPoints.slice(0, visitedStars);
   $('#constellation-line').setAttribute('d', points.length ? points.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ') + (done ? ' Z' : '') : '');
   $('#constellation').classList.toggle('complete', done);
-  $('#sky-hint').textContent = done ? 'دیدی؟ فاصله‌ها هم می‌توانند یک قلب شوند.' : 'ستاره‌ی روشن را لمس کن';
-  $('#star-count').textContent = `${fa.format(visitedStars)} از ۸ ستاره`;
+  $('#sky-hint').textContent = done ? 'Look! Even distance can turn into a heart.' : 'Tap the glowing star';
+  $('#star-count').textContent = `${fa.format(visitedStars)} of 8 stars`;
   if (visitedStars > 0 && !done) $$('.star-button')[visitedStars].focus({ preventScroll: true });
   if (done) $('#reset-stars').focus({ preventScroll: true });
 }
@@ -317,31 +317,31 @@ updateStars();
 const modal = $('#modal'), content = $('#content');
 function showModal(html) { content.innerHTML = html; if (!modal.open) modal.showModal(); }
 const dates = [
-  ['☕', 'دو فنجان و یک غروب', 'یک کافه‌ی کوچک، کنار پنجره. گوشی‌ها در جیب، دست‌ها روی میز.'],
-  ['☾', 'یک شب زیر ستاره‌ها', 'یک پتو، یک نوشیدنی گرم و پیدا کردن صورت فلکیِ خودمان.'],
-  ['❀', 'یک قرار پر از رنگ', 'دو کاغذ، چند رنگ؛ پرتره‌ی هم را بکشیم، حتی اگر شبیه سیب‌زمینی شد!'],
-  ['♨', 'آشپزخانه‌ی دونفره', 'یک غذای تازه با سلیقه‌ی هردومان؛ موسیقی و کمی هم آرد روی لباس‌ها.']
+  ['☕', 'kheli khari osgol', 'i loaf my gav'],
+  ['☾', 'hihihih', 'i really wanna be in our home together'],
+  ['❀', 'rangarangi', 'pishi bazi'],
+  ['♨', 'osgol bazi donafare', 'ahmagho']
 ];
 let dateIndex = -1;
 function openDate() {
   dateIndex = (dateIndex + 1) % dates.length; const [art, title, body] = dates[dateIndex];
-  showModal(`<div class="eyebrow">قرارهای نرفته</div><div class="date-art" aria-hidden="true">${art}</div><h2 id="modal-title">${title}</h2><p>${body}</p><button id="next-date" class="primary">یک قرار دیگر ↶</button>`);
+  showModal(`<div class="eyebrow">Dates still to come</div><div class="date-art" aria-hidden="true">${art}</div><h2 id="modal-title">${title}</h2><p>${body}</p><button id="next-date" class="primary">Another little date ↶</button>`);
   $('#next-date').onclick = openDate;
 }
 $$('[data-room]').forEach(button => button.onclick = () => {
   if (button.dataset.room === 'letter') {
-    showModal('<div class="date-art" aria-hidden="true">✉</div><h2 id="modal-title">سلام، آدمِ عزیزِ من.</h2><p>این جهان کوچک را ساختم تا یک گوشه از روزت، رنگی‌تر شود. برای نقاشی‌های کج‌وکوله، قرارهای بی‌هوا و همین کنار هم بودن.</p><button class="primary" id="secret">تای آخرِ نامه را باز کن ♡</button>');
-    $('#secret').onclick = event => { event.target.outerHTML = '<div class="reveal">از میان تمام اتفاق‌های ممکن، خوشحالم که به تو رسیدم. ♥</div>'; hearts(); };
+    showModal('<div class="date-art" aria-hidden="true">✉</div><h2 id="modal-title">helloooo saha</h2><p>you are ma lil pretty mommy</p><button class="primary" id="secret">open it</button>');
+    $('#secret').onclick = event => { event.target.outerHTML = '<div class="reveal">im so glad for having you</div>'; hearts(); };
   } else if (button.dataset.room === 'future') openDate();
   else {
-    showModal('<div class="date-art" aria-hidden="true">✧</div><h2 id="modal-title">یک آرزوی کوچک</h2><label for="wish" class="hint">آرزویت را در شیشه بگذار</label><textarea id="wish" maxlength="240" placeholder="یک روز، من و تو…"></textarea><button id="release-wish" class="primary">رهایش کن در آسمان ↑</button><p class="hint">فقط برای همین لحظه؛ جایی فرستاده یا ذخیره نمی‌شود.</p>');
+    showModal('<div class="date-art" aria-hidden="true">✧</div><h2 id="modal-title">you wish</h2><label for="wish" class="hint">Put your wish in the bottle</label><textarea id="wish" maxlength="240" placeholder="us.one day"></textarea><button id="release-wish" class="primary">Let it fly ↑</button><p class="hint">Just for this moment. Your wish is not saved or sent anywhere.</p>');
     $('#release-wish').onclick = () => {
       if (!$('#wish').value.trim()) { $('#wish').focus(); return; }
-      content.innerHTML = '<h2 id="modal-title">حالا آسمان خبر دارد.</h2><div class="wish-flight" aria-hidden="true">✧</div><p>یک روز، یک جایی، شاید همین آرزو…</p>'; hearts();
+      content.innerHTML = '<h2 id="modal-title">Now the sky knows.</h2><div class="wish-flight" aria-hidden="true">✧</div><p>one day we are together</p>'; hearts();
     };
   }
 });
-$('#moon').onclick = () => { showModal('<div class="date-art" aria-hidden="true">☾</div><h2 id="modal-title">ماه هم طرفِ ماست.</h2><p>این دو تا گربه، یک جای گرم کنار پنجره پیدا کرده‌اند. یکی برای من، یکی برای تو.</p><button id="moon-garden" class="primary">بیا برایشان گل بکاریم ❀</button>'); $('#moon-garden').onclick = () => { modal.close(); $('#garden').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'center' }); plant(300, 300); }; };
+$('#moon').onclick = () => { showModal('<div class="date-art" aria-hidden="true">☾</div><h2 id="modal-title">moon</h2><p>us?</p><button id="moon-garden" class="primary">grow a floser for us</button>'); $('#moon-garden').onclick = () => { modal.close(); $('#garden').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'center' }); plant(300, 300); }; };
 $('.close').onclick = () => modal.close();
 modal.addEventListener('click', event => {
   const rect = modal.getBoundingClientRect();
@@ -429,9 +429,9 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape' && !$
 $('#play-rain').onclick = async () => {
   const button = $('#play-rain'); button.disabled = true;
   try {
-    await rain.toggle(); button.textContent = rain.playing ? 'Ⅱ توقف باران' : '▶ پخش باران'; button.setAttribute('aria-pressed', rain.playing);
-    $('#sound').classList.toggle('playing', rain.playing); $('#audio-status').textContent = rain.playing ? 'باران، قطره و نسیم؛ به سلیقه‌ی تو.' : 'هر وقت خواستی، باران همین‌جاست.';
-  } catch { $('#audio-status').textContent = 'صدا شروع نشد؛ دوباره بزن یا با مرورگر جدیدتری باز کن.'; }
+    await rain.toggle(); button.textContent = rain.playing ? 'Ⅱ Pause rain' : '▶ Play rain'; button.setAttribute('aria-pressed', rain.playing);
+    $('#sound').classList.toggle('playing', rain.playing); $('#audio-status').textContent = rain.playing ? 'Rain, droplets and a breeze. Just the way you like it.' : 'Whenever you want, the rain is here.';
+  } catch { $('#audio-status').textContent = 'Audio could not start. Try again or use a newer browser.'; }
   finally { button.disabled = false; }
 };
 ['rain', 'drop', 'wind'].forEach(id => $(`#${id}-level`).addEventListener('input', event => rain.update({ [id === 'drop' ? 'drops' : id]: +event.target.value / 100 })));
