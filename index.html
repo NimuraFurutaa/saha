@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102e2b"><title>جهانِ کوچکِ ما</title>
+  <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <header><a class="brand" href="#">✧ جهانِ کوچکِ ما</a><span class="header-note">ساخته شده برای دو نفر</span><button id="sound" class="sound" aria-expanded="false" aria-controls="sound-panel"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span> حال‌وهوای بارانی</button></header>
+  <aside id="sound-panel" class="sound-panel" hidden aria-label="تنظیم صدای باران">
+    <div class="panel-heading"><span>پشت پنجره، باران است</span><button id="close-sound" class="icon-button" aria-label="بستن تنظیمات صدا">×</button></div>
+    <div class="presets" aria-label="فضای بارانی"><button data-preset="soft" class="active" aria-pressed="true">نم‌نم</button><button data-preset="window" aria-pressed="false">پشت شیشه</button><button data-preset="garden" aria-pressed="false">باغ بارانی</button></div>
+    <label>صدای باران <input id="rain-level" type="range" min="0" max="100" value="48"></label>
+    <label>قطره‌های نزدیک <input id="drop-level" type="range" min="0" max="100" value="30"></label>
+    <label>نسیم میان برگ‌ها <input id="wind-level" type="range" min="0" max="100" value="20"></label>
+    <button id="play-rain" class="primary full" aria-pressed="false">▶ پخش باران</button><p id="audio-status" class="hint" aria-live="polite">آرام شروع می‌شود؛ به اندازه‌ی حالِ تو.</p>
+  </aside>
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><div class="eyebrow">یک هدیه، هزار راه برای کشف کردن</div><h1>با هم،<br>یک جهان <em>بکشیم.</em></h1><p>اینجا با لمس تو گل می‌روید،<br>ستاره‌ها به هم می‌رسند و رنگ‌ها قصه می‌شوند.</p><a class="primary" href="#playground">بریم یک چیزی بسازیم <span>↙</span></a><span class="hero-note">ماه را لمس کن؛ یک رازی دارد.</span></div>
+      <div class="scene-wrap">
+        <svg class="hero-scene" viewBox="0 0 600 510" role="img" aria-label="نقاشی دو گربه کنار پنجره در یک شب بارانی">
+          <defs><linearGradient id="night" x2="0" y2="1"><stop stop-color="#183c40"/><stop offset="1" stop-color="#53716a"/></linearGradient><radialGradient id="glow"><stop stop-color="#f9d69e" stop-opacity=".25"/><stop offset="1" stop-color="#f9d69e" stop-opacity="0"/></radialGradient><pattern id="rain-lines" width="48" height="65" patternUnits="userSpaceOnUse"><path d="M20 0l-6 20M42 36l-4 13" stroke="#ccded6" stroke-opacity=".24" stroke-width="1.3"/></pattern><clipPath id="window-clip"><path d="M104 365V190a190 190 0 0 1 380 0v175z"/></clipPath></defs>
+          <circle cx="300" cy="240" r="235" fill="url(#glow)"/>
+          <path d="M91 372V190a203 203 0 0 1 406 0v182z" fill="#9d9876" stroke="#e4d1a4" stroke-width="2"/>
+          <g clip-path="url(#window-clip)"><path d="M104 365V190a190 190 0 0 1 380 0v175z" fill="url(#night)"/>
+            <g class="twinkles" fill="#f7d8a0"><circle cx="165" cy="170" r="2"/><circle cx="290" cy="85" r="2"/><circle cx="405" cy="210" r="2"/><path d="M215 90v12m-6-6h12M435 140v12m-6-6h12" stroke="#f7d8a0"/></g>
+            <path d="M85 315Q150 250 230 310T390 285T515 310V390H85" fill="#264b42"/><path d="M90 340Q190 280 300 335T510 325V390H90" fill="#1c3d35"/>
+            <rect class="window-rain" x="104" y="-70" width="380" height="500" fill="url(#rain-lines)"/>
+          </g>
+          <path d="M296 0v370M105 220h378" stroke="#d1be91" stroke-width="9"/><path d="M295 8v350" stroke="#f3ddb2" stroke-opacity=".35" stroke-width="2"/>
+          <rect x="72" y="366" width="445" height="19" rx="5" fill="#d4bb8a"/><rect x="85" y="385" width="418" height="9" rx="4" fill="#8f8d6c"/>
+          <g class="plant-sway"><path d="M140 362q-12-69 5-120" fill="none" stroke="#9baf80" stroke-width="4"/><path d="M140 320q-65-22-42-55 48 7 42 55M140 293q50-11 42-47-46 0-42 47M141 266q-40-14-30-42 35 5 30 42" fill="#789872"/><path d="M111 336h62l-9 43h-45z" fill="#c18c72"/><path d="M122 341l5 31m18-31v31m16-31-6 31" stroke="#e0af8b" stroke-width="2"/></g>
+          <g class="cat cat-one"><path d="M255 363q-44-11-40-62l7-48 24 19q17-4 30 2l24-16 2 49q16 44-14 56z" fill="#e2bb8c"/><path d="M243 295q6 6 12 0m21 1q6 6 12 0" stroke="#4e5344" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M261 306l6 4 6-4" fill="#b77e6a"/><path d="M253 354q-55 33-69 0-8-19 5-30" stroke="#e2bb8c" stroke-width="15" fill="none" stroke-linecap="round"/><path d="M232 285l-3-17 12 12m44 0 10-9v16" fill="#c7947e"/></g>
+          <g class="cat cat-two"><path d="M323 365q-24-25-14-56l2-39 22 15q15-4 30-1l18-20 9 43q17 43-15 58z" fill="#98aca2"/><path d="M326 308q6 6 12 0m21-1q6 6 12 0" stroke="#344d48" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M341 318l6 4 6-4" fill="#cba295"/><path d="M367 358q50 20 50-15" stroke="#98aca2" stroke-width="14" fill="none" stroke-linecap="round"/></g>
+          <g class="tea"><path d="M436 337h29v24q-14 12-29 0z" fill="#e7d4a5"/><path d="M465 342q19-2 9 13h-9" fill="none" stroke="#e7d4a5" stroke-width="4"/><path class="steam" d="M446 328q-12-12 0-24m9 20q-9-12 0-21" stroke="#f1e5ce" fill="none" stroke-width="2" opacity=".5"/></g>
+          <path d="M175 420q125 25 250 0" stroke="#c6b58a" stroke-opacity=".3" fill="none"/>
+        </svg>
+        <button id="moon" class="moon-button" aria-label="راز ماه را کشف کن">☾</button><span class="scene-caption">یک پنجره. دو تا گربه. تمامِ دنیا.</span>
+      </div>
+    </section>
+    <section id="playground" class="activity-section appear"><div class="section-heading"><div><div class="eyebrow">۰۱ / ردِ انگشت‌های تو</div><h2>یک نقاشی که فقط مالِ ماست</h2></div><span class="tag">با انگشت یا موس بکش</span></div>
+      <div class="drawing-studio"><div class="drawing-toolbar"><div class="swatches" role="group" aria-label="رنگ قلم"><button class="swatch selected" data-color="#b9655f" style="--swatch:#b9655f" aria-label="رنگ گلی" aria-pressed="true"></button><button class="swatch" data-color="#437c6c" style="--swatch:#437c6c" aria-label="رنگ سبز" aria-pressed="false"></button><button class="swatch" data-color="#d6a44b" style="--swatch:#d6a44b" aria-label="رنگ طلایی" aria-pressed="false"></button><button class="swatch" data-color="#7d79aa" style="--swatch:#7d79aa" aria-label="رنگ یاسی" aria-pressed="false"></button><button class="swatch" data-color="#34515b" style="--swatch:#34515b" aria-label="رنگ آبی" aria-pressed="false"></button></div><div class="brushes" role="group" aria-label="نوع قلم"><button data-brush="pen" class="selected" aria-pressed="true">✎ قلم</button><button data-brush="heart" aria-pressed="false">♡ قلب</button><button data-brush="flower" aria-pressed="false">✿ گل</button><button data-brush="mirror" aria-pressed="false">⌘ آینه</button></div><label class="brush-size">اندازه <input id="brush-size" type="range" min="2" max="18" value="5"></label></div>
+        <div class="canvas-wrap"><canvas id="drawing" width="1200" height="560" aria-label="بوم نقاشی؛ برای کشیدن از موس یا لمس استفاده کنید">برای نقاشی به مرورگری با پشتیبانی از Canvas نیاز است.</canvas><div class="canvas-hint" id="canvas-hint"><span>✎</span>از یک خطِ کوچک شروع کن…</div><span class="paper-corner">MADE BY US ♡</span></div>
+        <div class="studio-footer"><span id="save-status" class="hint" aria-live="polite">رنگِ امروزمان چیست؟</span><div><button id="undo" class="subtle" disabled>↶ برگشت</button><button id="clear-drawing" class="subtle">از نو</button><button id="download" class="dark-button">↓ یادگاری بگیر</button></div></div>
+      </div>
+    </section>
+    <div class="worlds">
+      <section class="mini-world appear"><div class="section-heading"><div><div class="eyebrow">۰۲ / کمی صبر، کمی جادو</div><h2>باغی که تو می‌کاری</h2></div><span class="tiny-icon">❀</span></div><div id="garden" class="garden" role="group" aria-label="باغ تعاملی؛ برای کاشتن گل کلیک کنید"><div class="garden-sun" aria-hidden="true"></div><div class="garden-hill hill-back" aria-hidden="true"></div><div class="garden-hill hill-front" aria-hidden="true"></div><svg id="flowers" viewBox="0 0 600 370" aria-hidden="true"></svg><span class="world-hint">هر لمس، یک گلِ تازه</span></div><div class="world-footer"><button id="plant-flower" class="subtle">+ یک گل بکار</button><span id="flower-count" aria-live="polite">باغ کوچک ما</span><button id="clear-garden" class="subtle" aria-label="شروع باغ از نو">↶</button></div></section>
+      <section class="mini-world appear"><div class="section-heading"><div><div class="eyebrow">۰۳ / فاصله‌ها را خط بزن</div><h2>صورتِ فلکیِ ما</h2></div><span class="tiny-icon">✧</span></div><div id="constellation" class="constellation"><svg viewBox="0 0 600 370" aria-hidden="true"><g id="sky-dust"></g><path id="constellation-line" fill="none" stroke="#e6c98e" stroke-width="2" stroke-linejoin="round"/><g id="sky-sparks"></g></svg><div id="star-buttons"></div><span class="world-hint" id="sky-hint" aria-live="polite">ستاره‌ی روشن را لمس کن</span></div><div class="world-footer"><span id="star-count">۰ از ۸ ستاره</span><button id="reset-stars" class="subtle">دوباره وصل کنیم ↶</button></div></section>
+    </div>
+    <section class="keepsakes appear"><div class="section-heading"><div><div class="eyebrow">۰۴ / هنوز یک گوشه‌ی دیگر مانده</div><h2>پاکت‌های کوچک، کشف‌های تازه</h2></div></div><div class="cards"><button class="card" data-room="letter"><div class="card-art envelope-art"><span class="paper">♡</span><span class="envelope-front">♥</span></div><h3>یک نامه‌ی تاخورده</h3><span>بازش کن ↗</span></button><button class="card" data-room="future"><div class="card-art cup-art"><span>♨</span><i></i><i></i></div><h3>قرارِ بعدی‌مان</h3><span>شانسمان را امتحان کنیم ↗</span></button><button class="card" data-room="bottle"><div class="card-art bottle-art"><span class="bottle"><i>✧</i></span><span class="bottle-star">✦</span></div><h3>یک آرزو در شیشه</h3><span>بسپرش به آسمان ↗</span></button></div></section>
+    <footer class="bottom"><span>✧</span><p>این جهان با تو قشنگ‌تر می‌شود.</p><small>هر بار که برگردی، یک جای خالی برای تو هست.</small></footer>
+  </main>
+  <dialog id="modal" aria-labelledby="modal-title"><button class="close icon-button" aria-label="بستن">×</button><div id="content"></div></dialog>
+</body></html>
