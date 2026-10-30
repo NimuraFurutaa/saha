@@ -31,3 +31,9 @@ Drawings and flowers remain in this browser's local storage when available. They
 - `app.js`: drawing, garden, constellation, dialogs, local persistence and Web Audio synthesis.
 
 No API keys, external fonts or audio downloads are required. To publish, serve these three files together using any static web host.
+
+## Pixel cats, music and mini-game
+
+`extras.js` adds original pixel cats that cuddle when petted, a shuffled four-pair memory game, and a user-initiated official Apple Music preview of Cuco's Audiotree live recording of Lover Is a Day. The full-recording link opens Apple Music; service access may be required. No song files are hosted in this repository.
+
+`site-texts.txt` contains categorized editable copy, source locations, and dynamic placeholders. Edit the entries and use them to update the referenced source strings; the inventory is not a runtime translation file. Regenerate it with `python3 scripts/export-texts.py` after source changes.
